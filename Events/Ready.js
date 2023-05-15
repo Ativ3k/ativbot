@@ -5,15 +5,8 @@ const cron = require('node-cron');
 const { connect, default: mongoose } = require('mongoose');
 const client = require('../index');
 const { dependencies } = require('../package.json');
-
-const ver = dependencies['discord.js']; // Getting the Version of Discord.js
-const mongooseConnectionString = process.env.MONGO_CONNECTION_URL; // Mongo Connection String
-// Getting Connect from Mongoose
-let ram;
-setInterval(() => {
-  ram = (process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2);
-}, 1000);
-// const arrayOfStatus = [`${ram}`, 'Okto to #60', 'Simpuje Hiro <3', 'Ale bym kebaba zjadł', '#JY #JY #JY'];
+const ver = dependencies['discord.js'];
+const mongooseConnectionString = process.env.MONGO_CONNECTION_URL;
 const kuponMECZE = require('../Models/kuponMECZE');
 const KuponyTOTAL = require('../Models/KuponyTOTAL');
 const Logger = require('../utils/logger');
@@ -21,8 +14,9 @@ const Logger = require('../utils/logger');
 client.on('ready', async () => {
   // Presence
   setInterval(() => {
+    const ram = (process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2);
     client.user.setPresence({
-      activities: [{ name: `${ram}` }],
+      activities: [{ name: `${ram}MB` }],
       status: 'online',
     });
   }, 15000);
