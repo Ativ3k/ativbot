@@ -1,6 +1,4 @@
 const client = require('../index');
-const { owners } = require('../json/owners.json');
-// Get the owner ids
 const prefix = process.env.PREFIX;
 const emoji = require('../json/emoji.json');
 
@@ -33,14 +31,14 @@ client.on('messageCreate', async (message) => {
         ephemeral: true,
       });
 
-    // Under Maintenance Commands
-    if (command.maintenance) {
-      if (!owners.includes(message.user.id)) {
-        message.reply({
-          content: `${process.env.FAILURE_EMOJI} Ta komenda jest jeszcze dopracowywana!`,
-        });
-      }
-    }
+    // Under Maintenance Commands TODO (need fix)
+    // if (command.maintenance) {
+    //   if (!owners.includes(message.user.id)) {
+    //     message.reply({
+    //       content: `${process.env.FAILURE_EMOJI} Ta komenda jest jeszcze dopracowywana!`,
+    //     });
+    //   }
+    // }
 
     // Bot Permissions Check
     if (!message.guild.me.permissions.has(command.botPermissions || []))

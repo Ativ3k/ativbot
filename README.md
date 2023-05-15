@@ -15,14 +15,14 @@ My first discord bot.
 * Member statistics (voice hours, text messages etc.) 
 * Media channel
 * Moderation commands
-* Anonymous messages (need fix)
 * Karaoke/Vote system
 * Vote timeout for user
 * Gambling (matches)
 * Error Handler
 * Context Menu
-* Command cooldown & permission checker.
-* Tester only mode for commands.
+* Command cooldown & permission checker
+* Tester only mode for commands (need fix)
+* Anonymous messages (need fix)
 * MongoDB.
 * Storage emoji in .json.
 

@@ -1,7 +1,4 @@
 const client = require("../index"); 
-const {
-    owners
-} = require('../json/owners.json'); // Get the owner ids
 var cron = require("node-cron");
 const emoji = require('../json/emoji.json')
 const moment = require("moment")
