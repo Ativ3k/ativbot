@@ -21,7 +21,8 @@ client.on('ready', async (oldState, newState) => {
           (member) =>
             member.voice.channel &&
             member.voice.channel !== member.guild.afkChannel &&
-            member.voice.channel.members.size > 0,
+            member.voice.channel.members.size > 0 &&
+            !member.voice.mute,
         );
         guildMembers.forEach((member) => {
           EcoVoiceAdd(guild, member, interval / 1000);
