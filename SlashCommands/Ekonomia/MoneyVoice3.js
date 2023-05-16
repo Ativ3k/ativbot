@@ -25,7 +25,7 @@ client.on('ready', async (oldState, newState) => {
             !member.voice.mute,
         );
         guildMembers.forEach((member) => {
-          EcoVoiceAdd(guild, member, interval / 1000);
+          EcoVoiceAdd(guildData, member, guild, interval / 1000);
         });
       }
     });

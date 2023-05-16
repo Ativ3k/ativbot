@@ -28,13 +28,13 @@ client.on('messageCreate', async (message) => {
   }
   if (message.channel.type === 0) {
     if (message.author.bot) return;
-    const settings = await guildSettings.findOne({
+    const serverSettings = await guildSettings.findOne({
       GuildId: message.guild.id,
     });
-    if (!settings) return;
-    const amout = settings.ecoMSGmoney;
+    if (!serverSettings) return;
+    const amout = serverSettings.ecoMSGmoney;
 
-    if (settings.ecoMSG === '1') {
+    if (serverSettings.ecoMSG === '1') {
       const checkuser = await db.findOne({
         Guildid: message.guild.id,
         Memberid: autor.id,
@@ -43,7 +43,7 @@ client.on('messageCreate', async (message) => {
         const checktime = await db.findOne({ Memberid: autor.id });
         const cdtime = Date.now() - checktime.Lastmessagetime;
         if (cdtime > 15000) {
-          EcoTextAdd(settings, message.member);
+          EcoTextAdd(message.guild, message.member, serverSettings);
         }
       }
     }

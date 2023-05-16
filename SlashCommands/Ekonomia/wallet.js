@@ -1,4 +1,9 @@
-const { EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
+const {
+  EmbedBuilder,
+  ApplicationCommandType,
+  ApplicationCommandOptionType,
+  CommandInteraction,
+} = require('discord.js');
 const emoji = require('../../json/emoji.json');
 const db = require('../../Models/Eco');
 const guildSettings = require('../../Models/GuildSettings');
@@ -34,9 +39,10 @@ module.exports = {
     */
 
   run: async (client, interaction) => {
+    const { member } = interaction;
     const data = await db.findOne({
       Guildid: interaction.guild.id,
-      Memberid: interaction.member.id,
+      Memberid: member.id,
     });
     if (!data) {
       return interaction.reply({
@@ -44,7 +50,7 @@ module.exports = {
       });
     }
     const create = interaction.user.createdTimestamp / 1000;
-    const join = interaction.member.joinedTimestamp / 1000;
+    const join = member.joinedTimestamp / 1000;
     const settings = await guildSettings.findOne({
       GuildId: interaction.guild.id,
     });
@@ -84,7 +90,7 @@ module.exports = {
       if (data) {
         totalxp = data.Voicecount * 60 * settings.ecoVCxp + data.Messagescount * settings.ecoMSGxp;
         const levels = Array.from({ length: 200 }, (_, i) => (300 * (i + 1) * (i + 1)) / 2 - (i + 1) * 50 - 100);
-
+        // todo: add roles for selected level and send log/dm when someone get levelup
         levels.forEach((v, i) => {
           if (totalxp >= v) {
             level = i + 1;
@@ -96,6 +102,15 @@ module.exports = {
         const sum = totalxp;
         const curlvlxp = (curlvlXP - sum) * -1;
         const percentage = `${((curlvlxp / nextlvl) * 100).toFixed(2)}%`;
+        let multipler = 1;
+
+        const monthsInServer = ((Date.now() - member.joinedTimestamp) / 2_629_700_000) * 0.01;
+        multipler += monthsInServer;
+        const boostingServer = member.premiumSince
+          ? ((Date.now() - member.premiumSinceTimestamp) / 2_629_700_000) * 0.01
+          : 0;
+        if (member.premiumSinceTimestamp) multipler += boostingServer + 0.05;
+        multipler += interaction.guild.premiumSubscriptionCount * 0.01;
         embed = new EmbedBuilder()
           .setFields(
             {
@@ -118,6 +133,15 @@ module.exports = {
               inline: false,
             },
             {
+              name: `Multipler`,
+              value:
+                `Staż: \`${monthsInServer.toFixed(5)}\`\n` +
+                `Boosting: \`${boostingServer.toFixed(5)}\`\n` +
+                `Global boost: \`${interaction.guild.premiumSubscriptionCount * 0.01}\`\n` +
+                `Total: \`${multipler.toFixed(5)}\``,
+              inline: false,
+            },
+            {
               name: `Statystyki (${level} lvl, ${percentage})`,
               value: `${data.Money.toFixed(2)} ${emoji.jascoin} :black_small_square: ${data.Voicecount.toFixed(2)} ${
                 emoji.karaoke
@@ -128,7 +152,7 @@ module.exports = {
               inline: false,
             },
           )
-          .setThumbnail(interaction.member.displayAvatarURL({ format: 'jpg', size: 1024 }))
+          .setThumbnail(member.displayAvatarURL({ format: 'jpg', size: 1024 }))
           .setColor('Random');
       }
     }
