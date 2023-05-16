@@ -5,6 +5,7 @@ const cron = require('node-cron');
 const { connect, default: mongoose } = require('mongoose');
 const client = require('../index');
 const { dependencies } = require('../package.json');
+
 const ver = dependencies['discord.js'];
 const mongooseConnectionString = process.env.MONGO_CONNECTION_URL;
 const kuponMECZE = require('../Models/kuponMECZE');

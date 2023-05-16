@@ -1,4 +1,5 @@
 const client = require('../index');
+
 const prefix = process.env.PREFIX;
 const emoji = require('../json/emoji.json');
 
@@ -48,15 +49,6 @@ client.on('messageCreate', async (message) => {
         }\` aby wykonać tę komende`,
         ephemeral: true,
       });
-
-    // Owner Only Commands
-    if (command.ownerOnly) {
-      if (!owners.includes(message.user.id)) {
-        message.reply({
-          content: `${process.env.FAILURE_EMOJI} Tylko właściciel bota może użyć tej komendy!`,
-        });
-      }
-    }
 
     await command.run(client, message, args); // Running the Command
   }

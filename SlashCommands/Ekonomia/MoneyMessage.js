@@ -6,7 +6,7 @@ const db = require('../../Models/Eco');
 const guildSettings = require('../../Models/GuildSettings');
 const Logger = require('../../utils/logger');
 const { EcoLog, EcoRegisterLog } = require('./utils/MoneyLog');
-const { EcoRegister } = require('./utils/MoneyAdd');
+const { EcoRegister, EcoTextAdd } = require('./utils/MoneyAdd');
 
 client.on('messageCreate', async (message) => {
   const autor = message.author;
@@ -43,21 +43,7 @@ client.on('messageCreate', async (message) => {
         const checktime = await db.findOne({ Memberid: autor.id });
         const cdtime = Date.now() - checktime.Lastmessagetime;
         if (cdtime > 15000) {
-          if (settings.Debug === '1') {
-            Logger.log(
-              chalk.green(`Wpływ na konto: ${amout.toFixed(2)}`) + chalk.blue(` | ${message.member.user.tag}`),
-              'eco',
-            );
-          }
-
-          await checktime.updateOne({
-            Membertag: message.member.user.tag,
-            $inc: { Messagescount: 1, Money: amout },
-            Lastmessagetime: time,
-          });
-
-          const updatedata = await db.findOne({ Memberid: autor.id });
-          EcoLog(autor, amout, updatedata.Money.toFixed(2), 'Wiadomość');
+          EcoTextAdd(settings, message.member);
         }
       }
     }

@@ -7,7 +7,9 @@ async function EcoLog(autor, data, updatedata, reason) {
   const embed = new EmbedBuilder()
     .setColor('Yellow')
     .setDescription(
-      `**Wpływ na konto:** <@${autor.id}> **=>** ${data}${emoji.jascoin} **=>** ${updatedata}${emoji.jascoin} | Za: **\`${reason}\`**`,
+      `**Wpływ na konto:** <@${autor.id}> **=>** ${data.toFixed(2)}${emoji.jascoin} **=>** ${updatedata.toFixed(2)}${
+        emoji.jascoin
+      } | Za: **\`${reason}\`**`,
     );
   ecolog.send({ embeds: [embed] });
 }
