@@ -24,6 +24,9 @@ async function EcoRegister(server, member) {
 
 async function EcoVoiceAdd(server, member, serverSettings, interval) {
   const user = await database.findOne({ Guildid: server.id, Memberid: member.user.id });
+  if (!user) {
+    return EcoRegister(server, member);
+  }
   const monthsInServer = (Date.now() - member.joinedTimestamp) / 2_629_700_000;
   const boostingServer = (Date.now() - member.premiumSinceTimestamp) / 2_629_700_000;
   let multipler = 1;
@@ -40,7 +43,9 @@ async function EcoVoiceAdd(server, member, serverSettings, interval) {
 
 async function EcoTextAdd(server, member, serverSettings) {
   const user = await database.findOne({ Guildid: server.id, Memberid: member.user.id });
-
+  if (!user) {
+    return EcoRegister(server, member);
+  }
   const monthsInServer = (Date.now() - member.joinedTimestamp) / 2_629_700_000;
   const boostingServer = (Date.now() - member.premiumSinceTimestamp) / 2_629_700_000;
   let multipler = 1;
