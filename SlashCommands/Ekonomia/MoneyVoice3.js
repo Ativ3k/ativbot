@@ -31,8 +31,8 @@ client.on('ready', async () => {
   }, intervalVoice);
   // daily coins for boosting members
   setInterval(async () => {
-    const time = new Date();
-    if (time.getHours() === 10 && time.getMinutes() === 0 && time.getSeconds() === 0) {
+    const timeNow = new Date();
+    if (timeNow.getHours() === 10 && timeNow.getMinutes() === 0 && timeNow.getSeconds() === 0) {
       const guilds = await guildSettings.find();
       guilds.forEach(async (guild) => {
         if (guild.ecoVC === '1') {
@@ -45,8 +45,8 @@ client.on('ready', async () => {
             .setDescription(
               `${serverBoosters
                 .map((member) => member)
-                .slice(0, 175)
                 .sort((a, b) => a.premiumSinceTimestamp - b.premiumSinceTimestamp)
+                .slice(0, 175)
                 .join(', ')}`,
             )
             .setColor('Green');

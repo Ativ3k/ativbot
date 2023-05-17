@@ -107,9 +107,9 @@ module.exports = {
         const monthsInServer = ((Date.now() - member.joinedTimestamp) / 2_629_700_000) * 0.01;
         multipler += monthsInServer;
         const boostingServer = member.premiumSince
-          ? ((Date.now() - member.premiumSinceTimestamp) / 2_629_700_000) * 0.01
+          ? ((Date.now() - member.premiumSinceTimestamp) / 2_629_700_000) * 0.01 + 0.05
           : 0;
-        if (member.premiumSinceTimestamp) multipler += boostingServer + 0.05;
+        if (member.premiumSince) multipler += boostingServer;
         multipler += interaction.guild.premiumSubscriptionCount * 0.01;
         embed = new EmbedBuilder()
           .setFields(
