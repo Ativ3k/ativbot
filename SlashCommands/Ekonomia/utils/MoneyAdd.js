@@ -53,20 +53,15 @@ async function EcoTextAdd(server, member, serverSettings) {
   multipler += member.guild.premiumSubscriptionCount * 0.01;
   if (member.premiumSinceTimestamp) multipler += boostingServer * 0.01 + 0.05;
   const moneyAmount = serverSettings.ecoMSGmoney * multipler;
-
-  const totalMoney = moneyAmount * multipler;
   await user.updateOne({
     Lastmessagetime: Date.now(),
-    $inc: { Money: totalMoney, Messagescount: 1 },
+    $inc: { Money: moneyAmount, Messagescount: 1 },
   });
 
   const updateData = await database.findOne({ Guildid: server.id, Memberid: member.user.id });
   EcoLog(member, moneyAmount * multipler, updateData.Money, 'Wiadomość');
   if (serverSettings.Debug === '1') {
-    Logger.log(
-      chalk.green(`Wpływ na konto: ${moneyAmount * multipler.toFixed(2)}`) + chalk.blue(` | ${member.user.tag}`),
-      'eco',
-    );
+    Logger.log(chalk.green(`Wpływ na konto: ${moneyAmount.toFixed(2)}`) + chalk.blue(` | ${member.user.tag}`), 'eco');
   }
 }
 
