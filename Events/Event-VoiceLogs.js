@@ -13,11 +13,12 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
   if (channel === undefined) return;
 
   if (data.VoiceLog === '1' && data.VoiceLogChannel > 0) {
+    /* Ignore bots and same state channel */
     if (oldState.channelId === newState.channelId) return;
-
     if (oldState.member.user.bot || !oldState.member) return;
     if (newState.member.user.bot || !newState.member) return;
-    // Join
+
+    /* Join channel */
     if (oldState.channel === null && newState.channel) {
       const embed = new EmbedBuilder()
         .setColor('Green')
@@ -27,16 +28,21 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         })
         .setDescription(` ${emoji.JOIN} ${newState.member} **dołączył \`${newState.channel.name}\`.**`)
         .setTimestamp();
-
       channel.send({ embeds: [embed] });
+
+      /* Text in Voice logs */
       newState.channel.send({ content: `${oldState.member} **dołączył.**`, allowedMentions: { parse: [] } });
+      /* end Text in Voice logs */
+
       if (newState.member.id === '309665062224658438') {
         newState.channel.permissionOverwrites.edit('325958892028690433', {
           ViewChannel: false,
         });
       }
     }
-    // leave
+    /* end Join channel */
+
+    /* leave channel */
     if (oldState.channel && newState.channelId === null) {
       const embed = new EmbedBuilder()
         .setColor('Red')
@@ -48,14 +54,22 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         .setTimestamp();
 
       channel.send({ embeds: [embed] });
-      if (oldState.channel.members.size > 0) {
-        oldState.channel.send({ content: `${oldState.member} **wyszedł.**`, allowedMentions: { parse: [] } });
-      }
+
+      /* Text in Voice logs */
+      setTimeout(() => {
+        const ifExistOld = oldState.guild.channels.cache.get(oldState.channelId);
+        if (ifExistOld) {
+          oldState.channel.send({ content: `${oldState.member} **wyszedł.**`, allowedMentions: { parse: [] } });
+        }
+      }, 1000);
+      /* end Text in Voice logs */
+
       if (newState.member.id === '309665062224658438') {
         oldState.channel.permissionOverwrites.delete('325958892028690433');
       }
     }
-    // Change
+
+    /* Change channel */
     if (oldState.channel && newState.channel) {
       const embed = new EmbedBuilder()
         .setColor('Blue')
@@ -65,10 +79,18 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         })
         .setDescription(`${oldState.member} **zmienił \`${oldState.channel.name}\` => \`${newState.channel.name}\`.**`)
         .setTimestamp();
-
       channel.send({ embeds: [embed] });
-      oldState.channel.send({ content: `${oldState.member} **wyszedł.**`, allowedMentions: { parse: [] } });
+
+      /* Text in Voice logs */
+      setTimeout(() => {
+        const ifExistOld = oldState.guild.channels.cache.get(oldState.channelId);
+        if (ifExistOld) {
+          oldState.channel.send({ content: `${oldState.member} **wyszedł.**`, allowedMentions: { parse: [] } });
+        }
+      }, 1000);
       newState.channel.send({ content: `${oldState.member} **dołączył.**`, allowedMentions: { parse: [] } });
+      /* end Text in Voice logs */
+
       if (newState.member.id === '309665062224658438') {
         oldState.channel.permissionOverwrites.delete('325958892028690433');
         newState.channel.permissionOverwrites.edit('325958892028690433', {
@@ -76,5 +98,6 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         });
       }
     }
+    /* end Change channel */
   }
 });
