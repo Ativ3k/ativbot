@@ -21,7 +21,12 @@ module.exports = class Logger {
         return console.log(`[${chalk.gray(date)}]: ${chalk.black.bgGreen(`|${type.toUpperCase()}|`)} ${content}`);
       }
       case 'cmd': {
-        return console.log(`[${chalk.gray(date)}]: ${chalk.black.bgWhite(`|${type.toUpperCase()}|`)} ${content}`);
+        const values = content.split(' ');
+        return console.log(
+          `[${chalk.gray(date)}]: ${chalk.black.bgWhite(`|${type.toUpperCase()}|`)} ${chalk.yellowBright(
+            values[0],
+          )} = ${chalk.greenBright(values[1])}`,
+        );
       }
       case 'event': {
         return console.log(`[${chalk.gray(date)}]: ${chalk.black.bgGreen(`|${type.toUpperCase()}|`)} ${content}`);

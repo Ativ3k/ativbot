@@ -46,13 +46,7 @@ client.on('interactionCreate', async (interaction) => {
   if (command.nolog === true) {
     return 0;
   }
-  console.log(
-    chalk.redBright(`${hours}:${minutes}:${seconds} |`),
-    chalk.yellowBright(`${interaction}`),
-    chalk.whiteBright(`=`),
-    chalk.greenBright(`${interaction.member.user.tag}`),
-  );
-  Logger.log(`${interaction} = ${interaction.member.user.tag}`, 'cmd');
+  Logger.log(`${interaction} ${interaction.member.user.tag}`, 'cmd');
   const embed = new EmbedBuilder()
     .setDescription(
       `**Komenda**: ${interaction}\n**Kanał:** ${interaction.channel} (${interaction.channel.id})\n**Członek:** ${interaction.user} (${interaction.user.id})`,
