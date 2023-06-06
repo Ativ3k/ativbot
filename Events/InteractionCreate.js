@@ -5,6 +5,7 @@ const client = require('../index');
 const testerRoleID = require('../json/devValues.json');
 const cooldownSchema = require('../Models/CommandCooldown');
 const emoji = require('../json/emoji.json');
+const Logger = require('../utils/logger');
 
 client.on('interactionCreate', async (interaction) => {
   const hours = `0${moment().utcOffset(2).hours()}`.slice(-2);
@@ -51,6 +52,7 @@ client.on('interactionCreate', async (interaction) => {
     chalk.whiteBright(`=`),
     chalk.greenBright(`${interaction.member.user.tag}`),
   );
+  Logger.log(`${interaction} = ${interaction.member.user.tag}`, 'cmd');
   const embed = new EmbedBuilder()
     .setDescription(
       `**Komenda**: ${interaction}\n**Kanał:** ${interaction.channel} (${interaction.channel.id})\n**Członek:** ${interaction.user} (${interaction.user.id})`,
