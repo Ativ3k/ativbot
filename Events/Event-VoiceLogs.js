@@ -15,8 +15,8 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
   if (data.VoiceLog === '1' && data.VoiceLogChannel > 0) {
     /* Ignore bots and same state channel */
     if (oldState.channelId === newState.channelId) return;
-    if (oldState.member.user.bot || !oldState.member) return;
-    if (newState.member.user.bot || !newState.member) return;
+    if ((oldState.member && oldState.member.user.bot) || !oldState.member) return;
+    if ((newState.member && newState.member.user.bot) || !newState.member) return;
 
     /* Join channel */
     if (oldState.channel === null && newState.channel) {

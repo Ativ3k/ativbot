@@ -5,6 +5,7 @@ const Logger = require('../../../utils/logger');
 const { EcoRegisterLog, EcoLog } = require('./MoneyLog');
 
 async function EcoRegister(server, member) {
+  if (!server || !member) throw new Error('Failed - EcoRegister');
   await new database({
     Guildid: server.GuildId,
     Memberid: member.id,
@@ -23,6 +24,7 @@ async function EcoRegister(server, member) {
 }
 
 async function EcoVoiceAdd(server, member, serverSettings, interval) {
+  if (!server || !member || !serverSettings || !interval) throw new Error('Failed - EcoVoiceAdd');
   const user = await database.findOne({ Guildid: server.id, Memberid: member.user.id });
   if (!user) {
     return EcoRegister(server, member);
@@ -42,6 +44,7 @@ async function EcoVoiceAdd(server, member, serverSettings, interval) {
 }
 
 async function EcoTextAdd(server, member, serverSettings) {
+  if (!server || !member || !serverSettings) throw new Error('Failed - EcoTextAdd');
   const user = await database.findOne({ Guildid: server.id, Memberid: member.user.id });
   if (!user) {
     return EcoRegister(server, member);

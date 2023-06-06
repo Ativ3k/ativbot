@@ -129,17 +129,15 @@ module.exports = {
         expires.setMinutes(expires.getMinutes() + time);
         const timeleft = expires.setMinutes(expires.getMinutes());
 
-        await warnSchema
-          .create({
-            GuildID: interaction.guild.id,
-            MemberID: user.id,
-            Reason: reason,
-            ModID: interaction.user.id,
-            Time: Date.now(),
-            Timeleft: timeleft,
-            Punkty: pkt,
-          })
-          .save();
+        await new warnSchema.create({
+          GuildID: interaction.guild.id,
+          MemberID: user.id,
+          Reason: reason,
+          ModID: interaction.user.id,
+          Time: Date.now(),
+          Timeleft: timeleft,
+          Punkty: pkt,
+        }).save();
 
         const embed = new EmbedBuilder()
           .setColor('Red')
