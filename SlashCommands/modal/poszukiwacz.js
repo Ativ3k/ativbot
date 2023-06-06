@@ -1,4 +1,11 @@
-const { ApplicationCommandType, TextInputBuilder, ModalBuilder } = require('discord.js');
+const {
+  ApplicationCommandType,
+  TextInputBuilder,
+  ModalBuilder,
+  CommandInteraction,
+  TextInputStyle,
+  ActionRowBuilder,
+} = require('discord.js');
 
 module.exports = {
   name: 'poszukiwacz',
@@ -8,8 +15,6 @@ module.exports = {
   /**
    * @param {Client} client
    * @param {CommandInteraction} interaction
-   * @param {Message} message
-   * @param {String} args
    * @raturns
    */
 
@@ -17,19 +22,15 @@ module.exports = {
     const textinput = new TextInputBuilder()
       .setCustomId('sugest')
       .setLabel('Propozycja:')
-      .setStyle('LONG')
-      .setMinLength(1)
+      .setStyle(TextInputStyle.Paragraph)
+      .setMinLength(20)
+      .setMaxLength(3500)
       .setPlaceholder('Tutaj napisz swoją propozycje do filmiku poszukiwacza!')
       .setRequired(true);
 
-    const modal = new ModalBuilder()
-      .setCustomId('propozycje')
-      .setTitle('Propozycje dla Poszukiwacza')
-      .addComponents([textinput]);
-
-    interaction.showModal(modal, {
-      client,
-      interaction,
-    });
+    const modal = new ModalBuilder().setCustomId('propozycje_poszukiwacz').setTitle('Propozycje dla Poszukiwacza');
+    const sugest = new ActionRowBuilder().addComponents(textinput);
+    modal.addComponents(sugest);
+    interaction.showModal(modal);
   },
 };

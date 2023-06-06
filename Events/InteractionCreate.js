@@ -42,7 +42,7 @@ client.on('interactionCreate', async (interaction) => {
   const ativ = client.channels.cache.get('1018086843469803590');
 
   // TODO command logs
-  if (command.name === 'anonim') {
+  if (command.nolog === true) {
     return 0;
   }
   console.log(

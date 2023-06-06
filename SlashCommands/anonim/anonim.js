@@ -4,6 +4,7 @@ module.exports = {
   name: 'anonim',
   description: 'Wyślij swojego anonima!',
   cooldown: 30,
+  nolog: true,
   type: ApplicationCommandType.ChatInput,
   dm_permission: 0,
   /**

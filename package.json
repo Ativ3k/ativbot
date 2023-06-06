@@ -26,6 +26,7 @@
     "fs": "^0.0.1-security",
     "glob": "^7.2.3",
     "google-tts-api": "^2.0.2",
+    "googleapis": "^118.0.0",
     "libsodium-wrappers": "^0.7.10",
     "memorystore": "^1.6.7",
     "moment": "^2.29.3",

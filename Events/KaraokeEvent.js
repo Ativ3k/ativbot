@@ -1,5 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ChannelType } = require('discord.js');
-const client = require('../index'); 
+const client = require('../index');
 
 client.on('interactionCreate', async (interaction) => {
   const CategoryId = '704789389544521859';
