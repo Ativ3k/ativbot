@@ -1,4 +1,4 @@
-const client = require('../../index'); 
+const client = require('../../index');
 const settings = require('../../Models/GuildSettings');
 
 client.on('interactionCreate', async (interaction) => {

@@ -20,7 +20,7 @@ client.on('modalSubmit', async (modal) => {
         const Discord = require('discord.js');
         const embed = new EmbedBuilder()
             .setColor('#00ff00')
-            .setAuthor({ name: `${name} aka ${modal.user.tag}`, iconURL: modal.user.displayAvatarURL(), })
+            .setAuthor({ name: `${name} aka ${modal.user.username}`, iconURL: modal.user.displayAvatarURL(), })
             .setThumbnail(`${modal.user.displayAvatarURL()}`)
             .setDescription("**Cześć! Jestem `" + name + "`")
             .setFooter({

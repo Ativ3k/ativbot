@@ -46,7 +46,7 @@ module.exports = {
           emoji.NOTE
         } **Powód:** ${powod}\n${emoji.DATA} **Kiedy:** <t:${Number(time)}:R>`,
       )
-      .setFooter({ text: `${USER.id || '??'} + ${USER.tag || '??'}` });
+      .setFooter({ text: `${USER.id || '??'} + ${USER.username || '??'}` });
     const error = new EmbedBuilder().setColor('Red').setDescription(`${emoji.FAILURE} Ten użytkownik jest chroniony!`);
 
     const immunerole = '986017883727491132';

@@ -1,4 +1,4 @@
-const client = require('../../index'); 
+const client = require('../../index');
 const emoji = require('../../json/emoji.json');
 const db = require('../../Models/Eco');
 const shopdb = require('../../Models/Shop');

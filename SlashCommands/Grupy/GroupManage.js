@@ -74,7 +74,7 @@ module.exports = {
         .create({
           GroupServerID: interaction.guild.id,
           GroupMemberID: interaction.member.id,
-          GroupNameMember: interaction.member.tag,
+          GroupNameMember: interaction.member.username,
           GroupJoinedAt: Date.now(),
           GroupLeavedAt: 0,
           GroupDonatedCoins: 0,
@@ -96,5 +96,6 @@ module.exports = {
 
       await interaction.reply({ embeds: [embed] });
     }
+    return 0;
   },
 };

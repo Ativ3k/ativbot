@@ -35,7 +35,7 @@ module.exports = {
       {
         name: 'BOT Info',
         value:
-          `**\`Tag:\`**\`${client.user.tag}\`\n` +
+          `**\`Tag:\`**\`${client.user.username}\`\n` +
           `**\`ID:\`**\`${client.user.id}\`\n` +
           `**\`Liczba komend:\`**\`${client.SlashCommands.size}\``,
       },
@@ -64,7 +64,7 @@ module.exports = {
       },
       {
         name: 'BOT Info',
-        value: `**\`Tag:\`**\`${client.user.tag}\`\n**\`ID:\`**\`${client.user.id}\`\n**\`Liczba komend:\`**\`${client.SlashCommands.size}\``,
+        value: `**\`Tag:\`**\`${client.user.username}\`\n**\`ID:\`**\`${client.user.id}\`\n**\`Liczba komend:\`**\`${client.SlashCommands.size}\``,
       },
       // {
       //     name: 'CPU Info',

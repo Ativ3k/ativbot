@@ -165,7 +165,7 @@ client.on('modalSubmit', async (modal) => {
             // Przycisk który dodawany jest na kanale weryfikacyjnym w przypadku zatwierdzenia anonima.
             const dodanybutton = new ActionRowBuilder().addComponents(
               new ButtonBuilder()
-                .setLabel(`Zatwierdzony przez: ${interaction.member.user.tag}`)
+                .setLabel(`Zatwierdzony przez: ${interaction.member.user.username}`)
                 .setCustomId('zaakceptowanyprzez')
                 .setStyle('Success')
                 .setDisabled(true),
@@ -174,7 +174,7 @@ client.on('modalSubmit', async (modal) => {
             // Przycisk który dodawany jest na kanale weryfikacyjnym w przypadku odrzucenia anonima.
             const usunietybutton = new ActionRowBuilder().addComponents(
               new ButtonBuilder()
-                .setLabel(`Odrzucony przez: ${interaction.member.user.tag}`)
+                .setLabel(`Odrzucony przez: ${interaction.member.user.username}`)
                 .setCustomId('odrzuconyprzez')
                 .setStyle('Danger')
                 .setDisabled(true),

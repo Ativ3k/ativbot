@@ -45,7 +45,7 @@ client.on('ready', async () => {
   Logger.log(chalk.red.bold('——————————[Połączenie]——————————'));
   Logger.log(
     chalk.white('✅ Pomyślnie połączono z ') +
-      chalk.red(`${client.user.tag} `) +
+      chalk.red(`${client.user.username} `) +
       chalk.white('(') +
       chalk.green(client.user.id) +
       chalk.white(')'),

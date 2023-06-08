@@ -7,7 +7,7 @@ client.on('interactionCreate', async (interaction) => {
     .addComponents(
       new ButtonBuilder()
         .setCustomId('reportpositive')
-        .setLabel(`Prawda | (${interaction.user.tag})`)
+        .setLabel(`Prawda | (${interaction.user.username})`)
         .setStyle('Success')
         .setEmoji(`${emoji.SUCCESS}`)
         .setDisabled(true),
@@ -20,7 +20,7 @@ client.on('interactionCreate', async (interaction) => {
     .addComponents(
       new ButtonBuilder()
         .setCustomId('reportidk')
-        .setLabel(`IDK | (${interaction.user.tag})`)
+        .setLabel(`IDK | (${interaction.user.username})`)
         .setStyle('Secondary')
         .setEmoji(`⚠️`)
         .setDisabled(true),
@@ -33,7 +33,7 @@ client.on('interactionCreate', async (interaction) => {
     .addComponents(
       new ButtonBuilder()
         .setCustomId('reportfalse')
-        .setLabel(`Fałsz | (${interaction.user.tag})`)
+        .setLabel(`Fałsz | (${interaction.user.username})`)
         .setStyle('Danger')
         .setEmoji(`${emoji.FAILURE}`)
         .setDisabled(true),

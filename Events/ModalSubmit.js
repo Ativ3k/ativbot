@@ -75,9 +75,9 @@ client.on('modalSubmit', async (modal) => {
     const Discord = require('discord.js');
     const embed = new EmbedBuilder()
       .setColor('#0099ff')
-      .setAuthor({ name: `${modal.user.tag}`, iconURL: modal.user.displayAvatarURL() })
+      .setAuthor({ name: `${modal.user.username}`, iconURL: modal.user.displayAvatarURL() })
       .setDescription(`${propozycja}`)
-      .setFooter({ text: `(+) Wysłane przez: ${modal.user.tag}` });
+      .setFooter({ text: `(+) Wysłane przez: ${modal.user.username}` });
     const oauth2Client = new OAuth2(
       process.env.nodemailer_clientId, // ClientID
       process.env.nodemailer_clientSecret, // Client Secret
@@ -106,7 +106,7 @@ client.on('modalSubmit', async (modal) => {
       from: process.env.nodemailer_user, // sender address
       to: process.env.nodemailer_sendToEmail, // list of receivers
       subject: 'DISCORD POSZUKIWACZ PROPOZYCJE', // Subject line
-      html: `<head>${propozycja}</head> <br><br><b>Email wysłany przez ${modal.user.tag} (${modal.user.id})</b>`, // html body
+      html: `<head>${propozycja}</head> <br><br><b>Email wysłany przez ${modal.user.username} (${modal.user.id})</b>`, // html body
     };
 
     const teraz = modal.createdTimestamp / 1000;

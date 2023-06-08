@@ -32,7 +32,7 @@ client.on('messageReactionAdd', async (reaction) => {
         .create({
           Guildid: reaction.message.guild.id,
           Memberid: autor.id,
-          Membertag: reaction.message.member.user.tag,
+          Membertag: reaction.message.member.user.username,
           Logs: [],
           Money: 4,
           Lastmessagetime: Date.now(),
@@ -88,7 +88,7 @@ client.on('messageReactionAdd', async (reaction) => {
                 .create({
                   Guildid: reaction.message.guild.id,
                   Memberid: autor.id,
-                  Membertag: reaction.message.author.tag,
+                  Membertag: reaction.message.author.username,
                   Logs: [],
                   Money: 1,
                   Lastmessagetime: Date.now(),

@@ -69,7 +69,7 @@ module.exports = {
       const percentage = `${((curlvlxp / nextlvl) * 100).toFixed(2)}%`;
       embed = new EmbedBuilder()
         .setAuthor({
-          name: `${target.user.tag}`,
+          name: `${target.user.username}`,
           iconURL: target.displayAvatarURL({ format: 'jpg', size: 1024 }),
         })
         .setFields(

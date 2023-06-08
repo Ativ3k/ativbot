@@ -70,7 +70,7 @@ module.exports = {
 
       const lista = `Aktywne:\n${wazne}\nNieaktywne:\n${niewazne}`;
       const embed = new EmbedBuilder()
-        .setTitle(`Lista warnów ${interaction.user.tag}`)
+        .setTitle(`Lista warnów ${interaction.user.username}`)
         .setColor('#FFFFFF')
         .setDescription(`${lista || `Brak`}`)
         .setFooter({
@@ -126,7 +126,7 @@ module.exports = {
 
         const lista = `${emoji.TAK} **Aktywne:**\n${wazne || '-'}\n${emoji.NIE} **Nieaktywne:**\n${niewazne || '-'}`;
         const embed = new EmbedBuilder()
-          .setTitle(`Lista warnów ${user.tag}`)
+          .setTitle(`Lista warnów ${user.username}`)
           .setColor('#FFFFFF')
           .setDescription(`${lista || `Brak`}`)
           .setFooter({

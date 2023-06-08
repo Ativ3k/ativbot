@@ -22,7 +22,7 @@ client.on('guildBanAdd', async (member) => {
       } **Powód:** ${banLog.reason || '`Brak powodu`'}\n${emoji.DATA} **Kiedy:** <t:${Number(time)}:R>`,
     )
     .setFooter({
-      text: `${member.user.id || '??'} + ${member.user.tag || '??'}`,
+      text: `${member.user.id || '??'} + ${member.user.username || '??'}`,
     });
   // const DM = new EmbedBuilder()
   //   .setColor('Red')
@@ -66,7 +66,7 @@ client.on('guildMemberRemove', async (member) => {
         } **Powód:** ${kickLog.reason || '`Brak powodu`'}\n${emoji.DATA} **Kiedy:** <t:${Number(time)}:R>`,
       )
       .setFooter({
-        text: `${member.user.id || '??'} + ${member.user.tag || '??'}`,
+        text: `${member.user.id || '??'} + ${member.user.username || '??'}`,
       });
 
     // const DM = new EmbedBuilder()

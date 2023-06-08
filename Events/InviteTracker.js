@@ -32,7 +32,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
       const embed = new EmbedBuilder()
         .setColor('#00FF00')
         .setAuthor({
-          name: `${member.user.tag} (${member.user.id})`,
+          name: `${member.user.username} (${member.user.id})`,
           iconURL: member.displayAvatarURL(),
         })
         .setDescription(
@@ -59,7 +59,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
         const embed = new EmbedBuilder()
           .setColor('#00FF00')
           .setAuthor({
-            name: `${member.user.tag} (${member.user.id})`,
+            name: `${member.user.username} (${member.user.id})`,
             iconURL: member.displayAvatarURL(),
           })
           .setDescription(
@@ -78,7 +78,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
         const embed = new EmbedBuilder()
           .setColor('#00FF00')
           .setAuthor({
-            name: `${member.user.tag} (${member.user.id})`,
+            name: `${member.user.username} (${member.user.id})`,
             iconURL: member.displayAvatarURL(),
           })
           .setDescription(
@@ -92,7 +92,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
     const embed = new EmbedBuilder()
       .setColor('#00FF00')
       .setAuthor({
-        name: `${member.user.tag} (${member.user.id})`,
+        name: `${member.user.username} (${member.user.id})`,
         iconURL: member.displayAvatarURL(),
       })
       .setDescription(`${emoji.JOIN} Dołączył ${member}! jest \`${totalCount}\` członkiem serwera!\n`);
@@ -105,7 +105,7 @@ tracker.on('guildMemberAdd', async (member, type, invite) => {
     const embed = new EmbedBuilder()
       .setColor('#00FF00')
       .setAuthor({
-        name: `${member.user.tag} (${member.user.id})`,
+        name: `${member.user.username} (${member.user.id})`,
         iconURL: member.displayAvatarURL(),
       })
       .setDescription(`${emoji.JOIN} Dołączył ${member}! jest \`${totalCount}\` członkiem serwera!\n`);
@@ -117,7 +117,7 @@ client.on('guildMemberRemove', async (member) => {
   const embed = new EmbedBuilder()
     .setColor('#FF0000')
     .setAuthor({
-      name: `${member.user.tag} (${member.user.id})`,
+      name: `${member.user.username} (${member.user.id})`,
       iconURL: member.displayAvatarURL(),
     })
     .setDescription(`${emoji.LEAVE} Użytkownik ${member} opuścił nas! Liczba członków: \`${totalCount}\`.`);

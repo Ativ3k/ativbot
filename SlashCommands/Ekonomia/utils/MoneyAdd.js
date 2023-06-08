@@ -9,7 +9,7 @@ async function EcoRegister(server, member) {
   await new database({
     Guildid: server.GuildId,
     Memberid: member.id,
-    Membertag: member.user.tag,
+    Membertag: member.user.username,
     Money: 1,
     Lastmessagetime: Date.now(),
     Messagescount: 0,
@@ -64,7 +64,10 @@ async function EcoTextAdd(server, member, serverSettings) {
   const updateData = await database.findOne({ Guildid: server.id, Memberid: member.user.id });
   EcoLog(member, moneyAmount * multipler, updateData.Money, 'Wiadomość');
   if (serverSettings.Debug === '1') {
-    Logger.log(chalk.green(`Wpływ na konto: ${moneyAmount.toFixed(2)}`) + chalk.blue(` | ${member.user.tag}`), 'eco');
+    Logger.log(
+      chalk.green(`Wpływ na konto: ${moneyAmount.toFixed(2)}`) + chalk.blue(` | ${member.user.username}`),
+      'eco',
+    );
   }
 }
 

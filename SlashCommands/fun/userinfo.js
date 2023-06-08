@@ -35,7 +35,7 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor('Random')
-      .setTitle(`${user.tag} - Info`)
+      .setTitle(`${user.username} - Info`)
       .setDescription(
         `<@${user.id}> (${user.id})\n` +
           `**Link do zdjęcia**: [Kliknij tutaj](${user.displayAvatarURL({

@@ -62,7 +62,7 @@ module.exports = {
       )
       .setColor('BLUE')
       .setFooter({
-        text: `${interaction.member.user.id} + ${interaction.member.user.tag}`,
+        text: `${interaction.member.user.id} + ${interaction.member.user.username}`,
       });
     const logs = client.channels.cache.get('1038818887136981022');
     logs.send({ embeds: [logi] });

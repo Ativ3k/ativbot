@@ -96,7 +96,7 @@ module.exports = {
           emoji.DATA
         } **Kończy się:** <t:${Number(timeleft)}:R>\n${emoji.NOTE} **Powód:** ${REASON || '`Brak powodu`'}`,
       )
-      .setFooter({ text: `${TARGET.id} + ${USER.tag}` });
+      .setFooter({ text: `${TARGET.id} + ${USER.username}` });
     const DM = new EmbedBuilder()
       .setColor('Orange')
       .setDescription(

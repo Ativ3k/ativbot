@@ -137,7 +137,7 @@ module.exports = {
       });
       const embed = new EmbedBuilder()
         .setAuthor({
-          name: `Kupony | ${interaction.member.user.tag}`,
+          name: `Kupony | ${interaction.member.user.username}`,
           iconURL: interaction.member.displayAvatarURL(),
         })
         .setTitle('Lista kuponów');

@@ -35,7 +35,7 @@ client.on('interactionCreate', async (interaction) => {
 
       const logi = new EmbedBuilder()
         .setAuthor({
-          name: `${interaction.member.user.tag}`,
+          name: `${interaction.member.user.username}`,
           iconURL: interaction.member.displayAvatarURL(),
         })
         .setDescription(`<@${interaction.member.user.id}> **ustawia swoje województwo na:** <@&${role.id}>`)
@@ -142,7 +142,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const logi = new EmbedBuilder()
       .setAuthor({
-        name: `${interaction.member.user.tag}`,
+        name: `${interaction.member.user.username}`,
         iconURL: interaction.member.displayAvatarURL(),
       })
       .setDescription(`<@${interaction.member.user.id}> **ustawia swoją płeć na:** <@&${role.id}>`)
@@ -160,7 +160,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const logi = new EmbedBuilder()
       .setAuthor({
-        name: `${interaction.member.user.tag}`,
+        name: `${interaction.member.user.username}`,
         iconURL: interaction.member.displayAvatarURL(),
       })
       .setDescription(`<@${interaction.member.user.id}> **ustawia swoją płeć na:** <@&${role.id}>`)
@@ -178,7 +178,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const logi = new EmbedBuilder()
       .setAuthor({
-        name: `${interaction.member.user.tag}`,
+        name: `${interaction.member.user.username}`,
         iconURL: interaction.member.displayAvatarURL(),
       })
       .setDescription(`<@${interaction.member.user.id}> **ustawia swoją płeć na:** <@&${role.id}>`)

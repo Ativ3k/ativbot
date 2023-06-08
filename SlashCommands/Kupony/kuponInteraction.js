@@ -11,7 +11,7 @@ client.on('interactionCreate', async (interaction) => {
     const data = await kuponMECZ.findOne({
       GuildID: interaction.guild.id,
       MemberID: interaction.member.id,
-      MemberTAG: interaction.member.tag,
+      MemberTAG: interaction.member.username,
       MessID: interaction.message.id,
     });
     if (!data) {
@@ -22,7 +22,7 @@ client.on('interactionCreate', async (interaction) => {
       kuponMECZ.create({
         GuildID: interaction.guild.id,
         MemberID: interaction.member.id,
-        MemberTAG: interaction.user.tag,
+        MemberTAG: interaction.user.username,
         idmeczu: selected,
         MessID: interaction.message.id,
       });

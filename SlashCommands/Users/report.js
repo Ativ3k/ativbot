@@ -42,7 +42,7 @@ module.exports = {
     const report = new EmbedBuilder()
       .setColor('Red')
       .setAuthor({
-        name: `${zgloszony.tag}, (${zgloszony})`,
+        name: `${zgloszony.username}, (${zgloszony})`,
         iconURL: zgloszony.displayAvatarURL(),
       })
       .setThumbnail(zgloszony.displayAvatarURL())

@@ -148,7 +148,7 @@ module.exports = {
               emoji.NOTE
             } **Powód:** ${reason}\n${emoji.INFO} **Punkty:** ${pkt}`,
           )
-          .setFooter({ text: `${user.id} + ${user.tag}` });
+          .setFooter({ text: `${user.id} + ${user.username}` });
 
         const dataupdate = await warnSchema.find({
           GuildID: interaction.guild.id,

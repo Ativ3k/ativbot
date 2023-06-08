@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-const client = require('../index'); 
+const client = require('../index');
 
 const emoji = require('../json/emoji.json');
 

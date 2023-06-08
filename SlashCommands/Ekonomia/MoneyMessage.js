@@ -17,7 +17,9 @@ client.on('messageCreate', async (message) => {
     if (message.author.id === user.id) return;
     const embed = new EmbedBuilder()
       .setColor('Green')
-      .setDescription(`Otrzymałem DM od ${message.author.tag} (${message.author.id})\n\`\`\`${message.content}\`\`\``);
+      .setDescription(
+        `Otrzymałem DM od ${message.author.username} (${message.author.id})\n\`\`\`${message.content}\`\`\``,
+      );
 
     user.send({ embeds: [embed] });
 

@@ -30,7 +30,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         if (stateJoinBot) return
 
         if (!data && !newState.mute) {
-            databaseVC = await db.create({ Guildid: guildID, Memberid: memberID, Membertag: newState.member.user.tag, Logs: [], Money: 1, Lastmessagetime: Date.now(), Messagescount: 0, GoodMemeCount: 0, Lastvoicestatus: Date.now(), Voicecount: 0, XPupvote: 0, Upvotegettime: 0, Upvotecooldown: 0})
+            databaseVC = await db.create({ Guildid: guildID, Memberid: memberID, Membertag: newState.member.user.username, Logs: [], Money: 1, Lastmessagetime: Date.now(), Messagescount: 0, GoodMemeCount: 0, Lastvoicestatus: Date.now(), Voicecount: 0, XPupvote: 0, Upvotegettime: 0, Upvotecooldown: 0})
             databaseVC.save()
             const update = await db.findOne({ Guildid: guildID, Memberid: memberID })
             const embed = new EmbedBuilder().setColor('Green').setDescription(`**Zarejestrowano nową osobe:** <@${newState.member.id}> **=>** ${update.Money.toFixed(2)}${emoji.jascoin}`)
@@ -51,11 +51,11 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                         Lastvoicestatus: Date.now(),
                         $inc: { Money: sumadd, Voicecount: vcadd }, $push: { Logs: log }
                     })
-                    return console.log(chalk.yellow(`(!) `) + chalk.green(`${oldState.member.user.tag} Aktualizacja przed małym kanałem => +${sumadd.toFixed(2)}`))
+                    return console.log(chalk.yellow(`(!) `) + chalk.green(`${oldState.member.user.username} Aktualizacja przed małym kanałem => +${sumadd.toFixed(2)}`))
                 }
 
-                if (channelsize <= 1) return console.log(chalk.yellow(`(!) `) + chalk.red(`${oldState.member.user.tag} Zbyt mały kanał => ${channelsize} (${sumadd.toFixed(2)})`))
-                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Zbyt mały kanał, zatrzymuje i dodaje ` + chalk.blue(` | ${oldState.member.user.tag}`) + chalk.green(` | ${sumadd.toFixed(2)}`))) }
+                if (channelsize <= 1) return console.log(chalk.yellow(`(!) `) + chalk.red(`${oldState.member.user.username} Zbyt mały kanał => ${channelsize} (${sumadd.toFixed(2)})`))
+                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Zbyt mały kanał, zatrzymuje i dodaje ` + chalk.blue(` | ${oldState.member.user.username}`) + chalk.green(` | ${sumadd.toFixed(2)}`))) }
 
                 await newdata.updateOne({ Lastvoicestatus: Date.now() })
                 await addvalue.updateOne({ $inc: { Money: sumadd, Voicecount: vcadd }, $push: { Logs: log } })
@@ -71,7 +71,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                 const stateMembers = newState.channel.members.filter((member) => !member.user.bot);
                 if (stateMembers.size <= 1) return
 
-                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.green(`Nowy kanał, zaczynam liczyć od nowa`) + chalk.blue(` | ${oldState.member.user.tag}`)) }
+                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.green(`Nowy kanał, zaczynam liczyć od nowa`) + chalk.blue(` | ${oldState.member.user.username}`)) }
                 update = await db.findOne({ Guildid: guildID, Memberid: memberID });
                 await update.updateOne({ Lastvoicestatus: Date.now() })
             }
@@ -80,7 +80,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                 const stateMembers = newState.channel.members.filter((member) => !member.user.bot);
                 if (stateMembers.size <= 1) return
 
-                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.green(`Nowy kanał, zaczynam liczyć od nowa`) + chalk.blue(` | ${oldState.member.user.tag}`)) }
+                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.green(`Nowy kanał, zaczynam liczyć od nowa`) + chalk.blue(` | ${oldState.member.user.username}`)) }
                 update = await db.findOne({ Guildid: guildID, Memberid: memberID });
                 await update.updateOne({ Lastvoicestatus: Date.now() })
             }
@@ -92,8 +92,8 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                 const sumadd = sum / 1000 / 60
                 const stateMembers = oldState.channel.members.filter((member) => !member.user.bot);
                 if (stateMembers.size <= 1) return
-                if (sum < 5000 && settings.Debug == 1) return console.log(chalk.yellow(`(!) `) + chalk.red(`${oldState.member.user.tag} Zbyt krótki czas => ${sum}`))
-                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Opuścił kanał, zatrzymuje i dodaje ` + chalk.blue(` | ${oldState.member.user.tag}`) + chalk.green(` | ${sumadd.toFixed(2)}`))) }
+                if (sum < 5000 && settings.Debug == 1) return console.log(chalk.yellow(`(!) `) + chalk.red(`${oldState.member.user.username} Zbyt krótki czas => ${sum}`))
+                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Opuścił kanał, zatrzymuje i dodaje ` + chalk.blue(` | ${oldState.member.user.username}`) + chalk.green(` | ${sumadd.toFixed(2)}`))) }
 
                 await newdata.updateOne({ Lastvoicestatus: Date.now() })
 
@@ -117,8 +117,8 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                 const sumadd = sum / 1000 / 60
                 const stateMembers = oldState.channel.members.filter((member) => !member.user.bot);
                 if (stateMembers.size <= 1) return
-                if (sum < 5000 && settings.Debug == 1) return console.log(chalk.yellow(`(!) `) + chalk.red(`${oldState.member.user.tag} Zbyt krótki czas => ${sum}`))
-                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Kanał AFK, zatrzymuje i dodaje ` + chalk.blue(` | ${oldState.member.user.tag}`) + chalk.green(` | ${sumadd.toFixed(2)}`))) }
+                if (sum < 5000 && settings.Debug == 1) return console.log(chalk.yellow(`(!) `) + chalk.red(`${oldState.member.user.username} Zbyt krótki czas => ${sum}`))
+                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Kanał AFK, zatrzymuje i dodaje ` + chalk.blue(` | ${oldState.member.user.username}`) + chalk.green(` | ${sumadd.toFixed(2)}`))) }
 
                 await newdata.updateOne({ Lastvoicestatus: Date.now() })
 
@@ -142,7 +142,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                 if (stateMembers.size <= 1) return
                 if (newState.channel === newState.guild.afkChannel) return
 
-                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.green(`Unmute, zaczynam liczyć od nowa`) + chalk.blue(` | ${oldState.member.user.tag}`)) }
+                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.green(`Unmute, zaczynam liczyć od nowa`) + chalk.blue(` | ${oldState.member.user.username}`)) }
 
                 const update = await db.findOne({ Guildid: guildID, Memberid: memberID });
                 await update.updateOne({ Lastvoicestatus: Date.now() })
@@ -157,8 +157,8 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                 const newdata = await db.findOne({ Guildid: guildID, Memberid: memberID });
                 const sum = Date.now() - newdata.Lastvoicestatus - Math.round(client.ws.ping)
                 const sumadd = sum / 1000 / 60
-                if (sum < 5000 && settings.Debug == 1) return console.log(chalk.red(`${oldState.member.user.tag} Zbyt krótki czas => ${sum}`))
-                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Mute, zatrzymuje i dodaje ` + chalk.blue(` | ${oldState.member.user.tag} `) + chalk.green(` | +${sumadd.toFixed(2)} `))) }
+                if (sum < 5000 && settings.Debug == 1) return console.log(chalk.red(`${oldState.member.user.username} Zbyt krótki czas => ${sum}`))
+                if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Mute, zatrzymuje i dodaje ` + chalk.blue(` | ${oldState.member.user.username} `) + chalk.green(` | +${sumadd.toFixed(2)} `))) }
 
                 const log = `${day}/${month}/${year} - ${hour}:${minutes}:${seconds} **|** Otrzymałeś **${sumadd.toFixed(2)}**${emoji.jascoin} za **\`VoiceChannel\`**`
 
@@ -189,7 +189,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 
                     const updatedata = await db.findOne({ Guildid: guildID, Memberid: updateuser.id });
                     updatedata.updateOne({ Lastvoicestatus: Date.now() })
-                    if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Pomniejszony kanał, aktualizuje i liczę ` + chalk.blue(` | ${updateuser.tag}`))) }
+                    if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Pomniejszony kanał, aktualizuje i liczę ` + chalk.blue(` | ${updateuser.username}`))) }
                     const embed = new EmbedBuilder().setColor('Yellow').setDescription(`**Wpływ na konto:** <@${oldState.member.id}> **=>** ${sumadd.toFixed(2)}${emoji.jascoin} **=>** ${updatedata.Money.toFixed(2)}${emoji.jascoin} | Za: **\`VoiceChannel\`**`)
                     await ecolog.send({ embeds: [embed] })
                     if (sumadd >= 100) { await ecodebug.send({ embeds: [embed] }) }
@@ -202,7 +202,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
                     const updateuser = seconduser.at(0).user
                     const updatedata = await db.findOne({ Guildid: guildID, Memberid: updateuser.id });
                     updatedata.updateOne({ Lastvoicestatus: Date.now() })
-                    if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Powiększony kanał, aktualizuje i liczę ` + chalk.blue(` | ${updateuser.tag}`))) }
+                    if (settings.Debug == 1) { console.log(chalk.yellow(`(!) `) + chalk.red(`Powiększony kanał, aktualizuje i liczę ` + chalk.blue(` | ${updateuser.username}`))) }
                 }
             }
         }

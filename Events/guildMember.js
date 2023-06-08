@@ -10,7 +10,7 @@ client.on('guildMemberAdd', async (member) => {
   const settingsData = await GuildSettings.findOne({ GuildId: member.guild.id });
   if (!userData) {
     EcoRegister(settingsData, member);
-    return Logger.log(`Nowy członek! ${member.user.tag} (${member.id})`, 'info');
+    return Logger.log(`Nowy członek! ${member.user.username} (${member.id})`, 'info');
   }
-  return Logger.log(`Powracający członek! ${member.user.tag} (${member.id})`, 'info');
+  return Logger.log(`Powracający członek! ${member.user.username} (${member.id})`, 'info');
 });

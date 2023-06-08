@@ -23,7 +23,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
       const embed = new EmbedBuilder()
         .setColor('Green')
         .setAuthor({
-          name: `${newState.member.user.tag} (${newState.member.user.id})`,
+          name: `${newState.member.user.username} (${newState.member.user.id})`,
           iconURL: newState.member.displayAvatarURL(),
         })
         .setDescription(` ${emoji.JOIN} ${newState.member} **dołączył \`${newState.channel.name}\`.**`)
@@ -47,7 +47,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
       const embed = new EmbedBuilder()
         .setColor('Red')
         .setAuthor({
-          name: `${oldState.member.user.tag} (${oldState.member.user.id})`,
+          name: `${oldState.member.user.username} (${oldState.member.user.id})`,
           iconURL: newState.member.displayAvatarURL(),
         })
         .setDescription(`${emoji.LEAVE} ${oldState.member} **opuścił \`${oldState.channel.name}\`.**`)
@@ -74,7 +74,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
       const embed = new EmbedBuilder()
         .setColor('Blue')
         .setAuthor({
-          name: `${oldState.member.user.tag} (${oldState.member.user.id})`,
+          name: `${oldState.member.user.username} (${oldState.member.user.id})`,
           iconURL: newState.member.displayAvatarURL(),
         })
         .setDescription(`${oldState.member} **zmienił \`${oldState.channel.name}\` => \`${newState.channel.name}\`.**`)

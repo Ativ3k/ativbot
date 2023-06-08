@@ -110,7 +110,7 @@ module.exports = {
       const logs = client.channels.cache.get('969995573983838218');
       const logi = new EmbedBuilder()
         .setAuthor({
-          name: `${interaction.member.user.tag}`,
+          name: `${interaction.member.user.username}`,
           iconURL: interaction.member.displayAvatarURL(),
         })
         .setDescription(`${interaction.member} **wybrał kolor:** <@&${choice}>`)

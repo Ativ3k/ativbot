@@ -46,7 +46,7 @@ client.on('interactionCreate', async (interaction) => {
   if (command.nolog === true) {
     return 0;
   }
-  Logger.log(`${interaction} ${interaction.member.user.tag}`, 'cmd');
+  Logger.log(`${interaction} ${interaction.member.user.username}`, 'cmd');
   const embed = new EmbedBuilder()
     .setDescription(
       `**Komenda**: ${interaction}\n**Kanał:** ${interaction.channel} (${interaction.channel.id})\n**Członek:** ${interaction.user} (${interaction.user.id})`,
