@@ -149,7 +149,7 @@ client.on('ready', async () => {
     }
   }, 1000 * 60 * 1);
 
-  const ciszaON = new cron.schedule(
+  const barka = new cron.schedule(
     '00 37 21 * * *',
     async () => {
       const ogolny = client.channels.cache.get('640277080721981442');
@@ -168,39 +168,76 @@ client.on('ready', async () => {
     false,
     'Europe/Warsaw',
   );
-  ciszaON.start();
+  barka.start();
 
-  setInterval(() => {
-    const gierki = [
-      '970797823987699773',
-      '736455324206104640',
-      '736455337904832612',
-      '736455359014764674',
-      '736455355768242237',
-      '736455320796266550',
-      '736455334838796289',
-      '736455331672227910',
-      '872091864994566184',
-      '872092402146504734',
-      '736455328149012500',
-      '736455343646703707',
-      '872092714202697758',
-      '872092763112505394',
-      '736455365415272560',
-      '872092550343835688',
-      '736455362122874941',
-      '872092817198043216',
-    ];
-    gierki.forEach((r) => {
-      const guild = client.guilds.cache.get('639632749610795009');
-      const role = guild.roles.cache.get(r);
-      const timeNow = new Date();
-      if (timeNow.getHours() === 7 && timeNow.getMinutes() === 0) {
+  const noMentionGierkiOFF = new cron.schedule(
+    '00 00 07 * * *',
+    async () => {
+      const gierki = [
+        '970797823987699773',
+        '736455324206104640',
+        '736455337904832612',
+        '736455359014764674',
+        '736455355768242237',
+        '736455320796266550',
+        '736455334838796289',
+        '736455331672227910',
+        '872091864994566184',
+        '872092402146504734',
+        '736455328149012500',
+        '736455343646703707',
+        '872092714202697758',
+        '872092763112505394',
+        '736455365415272560',
+        '872092550343835688',
+        '736455362122874941',
+        '872092817198043216',
+      ];
+      gierki.forEach((r) => {
+        const guild = client.guilds.cache.get('639632749610795009');
+        const role = guild.roles.cache.get(r);
+        const timeNow = new Date();
         guild.roles.edit(r, { mentionable: true });
-      }
-      if (timeNow.getHours() === 23 && timeNow.getMinutes() === 0) {
+      });
+    },
+    null,
+    false,
+    'Europe/Warsaw',
+  );
+  noMentionGierkiOFF.start();
+  const noMentionGierkiON = new cron.schedule(
+    '00 00 23 * * *',
+    async () => {
+      const gierki = [
+        '970797823987699773',
+        '736455324206104640',
+        '736455337904832612',
+        '736455359014764674',
+        '736455355768242237',
+        '736455320796266550',
+        '736455334838796289',
+        '736455331672227910',
+        '872091864994566184',
+        '872092402146504734',
+        '736455328149012500',
+        '736455343646703707',
+        '872092714202697758',
+        '872092763112505394',
+        '736455365415272560',
+        '872092550343835688',
+        '736455362122874941',
+        '872092817198043216',
+      ];
+      gierki.forEach((r) => {
+        const guild = client.guilds.cache.get('639632749610795009');
+        const role = guild.roles.cache.get(r);
+        const timeNow = new Date();
         guild.roles.edit(r, { mentionable: false });
-      }
-    });
-  }, 1000);
+      });
+    },
+    null,
+    false,
+    'Europe/Warsaw',
+  );
+  noMentionGierkiON.start();
 });
