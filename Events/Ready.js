@@ -196,11 +196,9 @@ client.on('ready', async () => {
       const role = guild.roles.cache.get(r);
       const timeNow = new Date();
       if (timeNow.getHours() === 7) {
-        console.log(role.mentionable);
         guild.roles.edit(r, { mentionable: true });
       }
       if (timeNow.getHours() === 23) {
-        console.log(role.mentionable);
         guild.roles.edit(r, { mentionable: false });
       }
     });
