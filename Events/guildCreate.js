@@ -26,6 +26,6 @@ client.on('guildCreate', async (guild) => {
       .save();
     console.log(`Joined to ${guild.name} (${guild.id}), created config.`);
   } else {
-    console.log(`Joined to ${guild.name} (${guild.id}), config exist.`);
+    console.log(`Joined to ${guild.name} (${guild.id}), config exists.`);
   }
 });

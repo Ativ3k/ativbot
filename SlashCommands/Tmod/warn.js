@@ -139,17 +139,6 @@ module.exports = {
           Punkty: pkt,
         }).save();
 
-        const embed = new EmbedBuilder()
-          .setColor('Red')
-          .setDescription(
-            `${emoji.wykrzyknik} **Nałożono ostrzeżenie na:** <@${user.id}>\n${emoji.MEMBER} **Przez:** ${
-              interaction.member
-            } \n${emoji.DATA} **Kończy się:** <t:${(timeleft / 1000).toFixed()}:R>\n${
-              emoji.NOTE
-            } **Powód:** ${reason}\n${emoji.INFO} **Punkty:** ${pkt}`,
-          )
-          .setFooter({ text: `${user.id} + ${user.username}` });
-
         const dataupdate = await warnSchema.find({
           GuildID: interaction.guild.id,
           MemberID: user.id,
@@ -177,26 +166,41 @@ module.exports = {
         if (punkty >= 25) {
           member.timeout(dzien * 28, `Osiągnięcie >=25 punktów ostrzeżeń!`);
         }
+
+        const embed = new EmbedBuilder()
+          .setColor('Red')
+          .setDescription(
+            `${emoji.wykrzyknik} **Nałożono ostrzeżenie na:** <@${user.id}>\n${emoji.MEMBER} **Przez:** ${
+              interaction.member
+            } \n${emoji.DATA} **Kończy się:** <t:${(timeleft / 1000).toFixed(0)}:R>\n${
+              emoji.NOTE
+            } **Powód:** ${reason}\n${emoji.INFO} **Punkty:** ${pkt}`,
+          )
+          .setFooter({ text: `${user.id} + ${user.username}` });
         logi.send({ embeds: [embed] });
         return interaction.reply({ embeds: [embed] });
       }
+
       if (subCommand === 'remove') {
         const objId = new ObjectId(id);
         const checkuser = await warnSchema.findOne({ _id: objId });
         if (checkuser) {
           await checkuser.updateOne({ Timeleft: Date.now() });
-          const embed = new EmbedBuilder()
+          const removeWarn = new EmbedBuilder()
             .setColor('#FFFFFF')
             .setDescription(`Zdjęto warna o ID \`${id}\` użytkownika <@${checkuser.MemberID}>`);
 
-          return interaction.reply({ embeds: [embed] });
+          return interaction.reply({ embeds: [removeWarn] });
         }
-        interaction.reply({ content: `Nie znaleziono warna!` });
+        return interaction.reply({ content: `Nie znaleziono warna!` });
       }
     }
+
     if (subCommand === 'delete') {
       const myregexp = /^[0-9a-fA-F]{24}$/;
-      if (!id.match(myregexp)) return interaction.reply({ content: `Błędne ID warna!` });
+      if (!id.match(myregexp)) {
+        return interaction.reply({ content: `Błędne ID warna!` });
+      }
       const objId = new ObjectId(id);
       const checkuser = await warnSchema.findOne({
         _id: objId,
@@ -204,18 +208,16 @@ module.exports = {
       });
       if (checkuser) {
         await checkuser.delete();
-        const embed = new EmbedBuilder()
+        const deleteWarn = new EmbedBuilder()
           .setColor('#FFFFFF')
           .setDescription(`Usunięto warna o ID \`${id}\` użytkownika <@${checkuser.MemberID}>`);
 
-        return interaction.reply({ embeds: [embed] });
+        return interaction.reply({ embeds: [deleteWarn] });
       }
       return interaction.reply({ content: `Nie znaleziono warna!` });
     }
+
     const error = new EmbedBuilder().setColor('Red').setDescription(`${emoji.FAILURE} Ten użytkownik jest chroniony!`);
-    if (!member.bannable) {
-      interaction.reply({ embeds: [error] });
-    }
-    return 0;
+    return interaction.reply({ embeds: [error] });
   },
 };

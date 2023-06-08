@@ -33,50 +33,46 @@ module.exports = {
    */
 
   run: async (client, interaction) => {
-    const TARGET = interaction.options.getMember('user');
-    const USER = interaction.options.getUser('user');
-    const REASON = interaction.options.getString('powód');
-    const powod = `${REASON || '`Brak powodu`'} (${interaction.member.id})`;
+    const banTarget = interaction.options.getMember('user');
+    const user = interaction.options.getUser('user');
+    const reason = interaction.options.getString('powód');
+    const reasonFull = `${reason || '`Brak powodu`'} (${interaction.member.id})`;
     const time = Date.now() / 1000;
+
+    if (banTarget === null) {
+      const error = new EmbedBuilder().setColor('Red').setDescription(`${emoji.FAILURE} Nie znaleziono członka!`);
+      return interaction.reply({ embeds: [error] });
+    }
+    if (banTarget.bannable) {
+      const immunerole = '986017883727491132';
+      if (banTarget.roles.cache.has(immunerole) === true) {
+        const shield = new EmbedBuilder()
+          .setColor('Red')
+          .setDescription(`${emoji.SHIELDMOD} Ten użytkownik jest chroniony przez <@&${immunerole}>!`);
+        return interaction.reply({ embeds: [shield] });
+      }
+    }
+    if (!banTarget.bannable) {
+      const noPerms = new EmbedBuilder()
+        .setColor('Red')
+        .setDescription(`${emoji.FAILURE} Nie mam uprawnień aby zbanować tego użytkownika!`);
+      return interaction.reply({ embeds: [noPerms] });
+    }
 
     const embed = new EmbedBuilder()
       .setColor('Red')
       .setDescription(
-        `${emoji.BAN} **Zbanowano:** ${TARGET}.\n${emoji.MEMBER} **Przez:** <@${interaction.member.id}>\n${
+        `${emoji.BAN} **Zbanowano:** ${banTarget}.\n${emoji.MEMBER} **Przez:** <@${interaction.member.id}>\n${
           emoji.NOTE
-        } **Powód:** ${powod}\n${emoji.DATA} **Kiedy:** <t:${Number(time)}:R>`,
+        } **Powód:** ${reasonFull}\n${emoji.DATA} **Kiedy:** <t:${Number(time).toFixed(0)}:R>`,
       )
-      .setFooter({ text: `${USER.id || '??'} + ${USER.username || '??'}` });
-    const error = new EmbedBuilder().setColor('Red').setDescription(`${emoji.FAILURE} Ten użytkownik jest chroniony!`);
+      .setFooter({ text: `${user.id || '??'} + ${user.username || '??'}` });
 
-    const immunerole = '986017883727491132';
-    const roleimmune = TARGET.roles.cache.has(immunerole);
-
-    if (TARGET.bannable) {
-      if (TARGET === null) {
-        return interaction.reply({ embeds: [error] });
-      }
-
-      if (roleimmune === true) {
-        const shield = new EmbedBuilder()
-          .setColor('Red')
-          .setDescription(`${emoji.SHIELDMOD} Ten użytkownik jest chroniony przez <@&${immunerole}>!`);
-
-        return interaction.reply({ embeds: [shield] });
-      }
-      if (!roleimmune === true) {
-        TARGET.ban({ deleteMessageSeconds: 604800, reason: `${powod}` });
-        interaction.reply({ embeds: [embed] }).catch((err) => {
-          interaction.reply({ embeds: [err] });
-        });
-      }
-    }
-    if (!TARGET.bannable) {
-      const cantban = new EmbedBuilder()
-        .setColor('Red')
-        .setDescription(`${emoji.FAILURE} Nie mam uprawnień aby zbanować tego użytkownika!`);
-      interaction.reply({ embeds: [cantban] });
-    }
-    return 0;
+    banTarget.ban({ deleteMessageSeconds: 604800, reason: `${reasonFull}` }).catch((err) => {
+      console.log(err);
+    });
+    return interaction.reply({ embeds: [embed] }).catch((err) => {
+      interaction.reply({ embeds: [err] });
+    });
   },
 };

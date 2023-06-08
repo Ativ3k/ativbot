@@ -1,9 +1,14 @@
-const { EmbedBuilder, ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js');
+const {
+  EmbedBuilder,
+  ApplicationCommandType,
+  ApplicationCommandOptionType,
+  CommandInteraction,
+} = require('discord.js');
 const emoji = require('../../json/emoji.json');
 
 module.exports = {
   name: 'timeout',
-  description: 'Wyślij użytkownika na przerwę.',
+  description: 'Wyślij członka na przerwę.',
   userPermissions: 'KickMembers',
   defaultMemberPermissions: 'KickMembers',
   type: ApplicationCommandType.ChatInput,
@@ -11,7 +16,7 @@ module.exports = {
   options: [
     {
       name: 'użytkownik',
-      description: 'Wybierz użytkownika.',
+      description: 'Wybierz członka.',
       required: true,
       type: ApplicationCommandOptionType.User,
     },
@@ -51,17 +56,21 @@ module.exports = {
     */
 
   run: async (client, interaction) => {
-    const TARGET = interaction.options.getMember('użytkownik');
-    const USER = interaction.options.getUser('użytkownik');
-    const REASON = interaction.options.getString('powód');
-    const SILENT = interaction.options.getString('powiadomienie');
-    // const czas = CZAS * 1000 * 60
-    const powod = REASON || '';
-    // const timeleft = (czas / 1000 + Date.now() / 1000)
+    const target = interaction.options.getMember('użytkownik');
+    const user = interaction.options.getUser('użytkownik');
+    const reason = interaction.options.getString('powód');
+    const silent = interaction.options.getString('powiadomienie');
+    const powod = reason || '??';
     const logi = client.channels.cache.get('679054786649128999');
-    const un = interaction.options.getString('czas');
+    const unTimeout = interaction.options.getString('czas');
     const args = interaction.options.getString('czas').split(' ');
     const duration = args.shift();
+
+    const memberExists = interaction.guild.members.cache.has(user.id);
+    if (!memberExists) {
+      const noMember = new EmbedBuilder().setColor('Red').setDescription(`${emoji.FAILURE} Nie znaleziono członka!!`);
+      return interaction.reply({ embeds: [noMember] });
+    }
     let time;
     let type;
     try {
@@ -84,60 +93,66 @@ module.exports = {
     const timeleft = expires.setMinutes(expires.getMinutes()) / 1000;
     const TIME = (timeleft - Date.now() / 1000) * 1000;
 
-    if (un === '0') {
-      TARGET.timeout(0);
+    if (unTimeout === '0') {
+      target.timeout(0);
       return interaction.reply(`${emoji.SUCCESS} Zdjęto przerwe!`);
     }
 
-    const embed = new EmbedBuilder()
-      .setColor('Orange')
-      .setDescription(
-        `${emoji.TIMEOUT} **Wysłano na przerwe** ${TARGET}.\n${emoji.MEMBER} **Przez:** <@${interaction.member.id}>\n${
-          emoji.DATA
-        } **Kończy się:** <t:${Number(timeleft)}:R>\n${emoji.NOTE} **Powód:** ${REASON || '`Brak powodu`'}`,
-      )
-      .setFooter({ text: `${TARGET.id} + ${USER.username}` });
-    const DM = new EmbedBuilder()
-      .setColor('Orange')
-      .setDescription(
-        `${emoji.TIMEOUT} <@${interaction.member.id}> nałożył na Ciebie przerwę!\n${
-          emoji.DATA
-        } **Kończy się:** <t:${Number(timeleft)}:R>\n${emoji.NOTE} **Powód:** ${REASON || '`Brak powodu`'}`,
-      )
-      .setFooter({ text: 'Discord.gg/wiemjak' });
-
-    const error = new EmbedBuilder()
-      .setColor('Red')
-      .setDescription(`${emoji.FAILURE} Nie moge nałożyć przerwy na tego użytkownika!`);
-
     const immunerole = '986017883727491132';
+    const roleimmune = target.roles.cache.has(immunerole);
 
-    const roleimmune = TARGET.roles.cache.has(immunerole);
-
-    if (TARGET.bannable) {
+    if (target.bannable && !target.permissions.has('ADMINISTRATOR')) {
       if (roleimmune === true) {
         const shield = new EmbedBuilder()
           .setColor('Red')
-          .setDescription(`${emoji.SHIELDMOD} Ten użytkownik jest chroniony przez <@&${immunerole}>!`);
+          .setDescription(
+            `${emoji.SHIELDMOD} Ten użytkownik jest chroniony przez <@&${immunerole}> lub uprawnienia \`ADMINISTRATOR\`!`,
+          );
 
         return interaction.reply({ embeds: [shield] });
       }
-      if (SILENT === '1') {
-        TARGET.timeout(TIME, powod);
-        interaction.reply({ embeds: [embed], ephemeral: true });
+
+      const embed = new EmbedBuilder()
+        .setColor('Orange')
+        .setDescription(
+          `${emoji.TIMEOUT} **Wysłano na przerwe** ${target}.\n${emoji.MEMBER} **Przez:** <@${
+            interaction.member.id
+          }>\n${emoji.DATA} **Kończy się:** <t:${Number(timeleft).toFixed(0)}}:R>\n${emoji.NOTE} **Powód:** ${
+            reason || '`Brak powodu`'
+          }`,
+        )
+        .setFooter({ text: `${target.id} + ${user.username}` });
+
+      if (silent === '1') {
+        target.timeout(TIME, powod);
         logi.send({ embeds: [embed] });
-      } else if (SILENT !== '1') {
-        TARGET.timeout(TIME, powod);
+        return interaction.reply({ embeds: [embed], ephemeral: true });
+      }
+      if (silent !== '1') {
+        target.timeout(TIME, powod);
         interaction.reply({ embeds: [embed] });
-        TARGET.send({ embeds: [DM] }).catch((err) => {
+
+        const DM = new EmbedBuilder()
+          .setColor('Orange')
+          .setDescription(
+            `${emoji.TIMEOUT} <@${interaction.member.id}> nałożył na Ciebie przerwę!\n${
+              emoji.DATA
+            } **Kończy się:** <t:${Number(timeleft).toFixed(0)}:R>\n${emoji.NOTE} **Powód:** ${
+              reason || '`Brak powodu`'
+            }`,
+          )
+          .setFooter({ text: 'Discord.gg/wiemjak' });
+
+        target.send({ embeds: [DM] }).catch((err) => {
           console.log(err);
         });
-        logi.send({ embeds: [embed] });
+        return logi.send({ embeds: [embed] });
       }
     }
-    if (!TARGET.bannable) {
-      interaction.reply({ embeds: [error] });
-    }
-    return 0;
+    const error = new EmbedBuilder()
+      .setColor('Red')
+      .setDescription(`${emoji.FAILURE} Nie moge nałożyć przerwy na tego członka!`);
+
+    return interaction.reply({ embeds: [error] });
   },
 };
