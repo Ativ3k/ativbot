@@ -20,7 +20,7 @@ client.on('ready', async () => {
           (member) =>
             member.voice.channel &&
             member.voice.channel !== member.guild.afkChannel &&
-            member.voice.channel.members.size > 0 &&
+            member.voice.channel.members.size > 1 &&
             !member.voice.mute,
         );
         guildMembers.forEach((member) => {

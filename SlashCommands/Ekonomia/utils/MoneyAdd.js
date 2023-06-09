@@ -6,7 +6,6 @@ const { EcoRegisterLog, EcoLog } = require('./MoneyLog');
 
 async function EcoRegister(server, member) {
   if (!server || !member) throw new Error('Failed - EcoRegister');
-  console.log(server);
   await new database({
     Guildid: server.id,
     Memberid: member.id,
