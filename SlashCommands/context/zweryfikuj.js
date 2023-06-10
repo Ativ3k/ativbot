@@ -55,7 +55,7 @@ module.exports = {
           });
         }
       });
-    const logs = client.channels.cache.get('970001519271350284');
+    const logs = client.channels.cache.get('1033484270808875049');
     logs.send({ embeds: [logi] });
     member.roles.add(dodaj);
     member.roles.remove(usun);
