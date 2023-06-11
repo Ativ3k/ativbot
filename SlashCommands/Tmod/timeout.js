@@ -101,7 +101,7 @@ module.exports = {
     const immunerole = '986017883727491132';
     const roleimmune = target.roles.cache.has(immunerole);
 
-    if (target.bannable && !target.permissions.has('ADMINISTRATOR')) {
+    if (target.bannable && !target.permissions.has('Administrator')) {
       if (roleimmune === true) {
         const shield = new EmbedBuilder()
           .setColor('Red')
