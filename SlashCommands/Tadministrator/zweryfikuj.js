@@ -50,7 +50,7 @@ module.exports = {
     if (!hasRole) {
       member
         .send({
-          content: `Gratulacje <@${member}>! \nPrzeszedłeś weryfikacje i uzyskałeś dostęp do kanału <#796367204660412478>.`,
+          content: `Gratulacje ${member}! \nPrzeszedłeś weryfikacje i uzyskałeś dostęp do kanału <#796367204660412478>.`,
         })
         .catch(console.error);
       interaction.reply({
@@ -65,8 +65,8 @@ module.exports = {
           await memberR.remove(usun),
           osiemnascie.send(
             `**\`Witamy nową osobę w gronie zweryfikowanych i dorosłych!\`** 😄\n` +
-              `${member} dołączył na discord <t:${parseInt(create, 10)}:R>` +
-              `a na nasz serwer <t:${parseInt(join, 10)}:R>.\nCzuj się jak u siebie! ${emoji.pepelove}`,
+              `${member} dołączył na discord <t:${Number(create).toFixed(0)}:R>` +
+              `a na nasz serwer <t:${Number(join).toFixed(0)}:R>.\nCzuj się jak u siebie! ${emoji.pepelove}`,
           ),
         )
         .catch(console.error);

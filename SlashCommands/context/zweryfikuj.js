@@ -38,7 +38,7 @@ module.exports = {
 
     member
       .send({
-        content: `Gratulacje <@${member}>!\nPrzeszedłeś weryfikacje i uzyskałeś dostęp do kanału <#796367204660412478>.`,
+        content: `Gratulacje ${member}!\nPrzeszedłeś weryfikacje i uzyskałeś dostęp do kanału <#796367204660412478>.`,
       })
       .catch((error) => {
         if (!error) {
@@ -63,8 +63,8 @@ module.exports = {
       .get('796367204660412478')
       .send(
         `**\`Witamy nową osobę w gronie zweryfikowanych i dorosłych!\`** 😄\n` +
-          `<@${member}> dołączył na discord <t:${Number(create)}:R>\n` +
-          `a na nasz serwer <t:${Number(join)}:R>.\n` +
+          `${member} dołączył na discord <t:${Number(create).toFixed(0)}:R>\n` +
+          `a na nasz serwer <t:${Number(join).toFixed(0)}:R>.\n` +
           `Czuj się jak u siebie! <:peepoLove:708661445885296661>`,
       );
   },
