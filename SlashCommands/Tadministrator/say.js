@@ -60,7 +60,7 @@ module.exports = {
       .setDescription(
         `❓ **\`Kto:\`** ${interaction.member.user}  **|**  **\`Co:\`** /say\n${emoji.CHANNEL} **\`Kanał:\`** ${interaction.channel}\n📝 **\`Napisał:\`**\n**${tekst}**`,
       )
-      .setColor('BLUE')
+      .setColor('Random')
       .setFooter({
         text: `${interaction.member.user.id} + ${interaction.member.user.username}`,
       });
