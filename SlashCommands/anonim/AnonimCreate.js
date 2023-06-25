@@ -122,7 +122,7 @@ client.on('modalSubmit', async (modal) => {
       const admin = client.channels.cache.get(anonimSettings.adminchannelid);
       // Wysłanie anonima na kanał administracyjny z przyciskami POTWIERDŹ/ODRZUĆ.
       const message = await admin.send({
-        content: `<@&x871190767098540032>`,
+        content: `<@&871190767098540032>`,
         embeds: [anonimEmbed],
         components: [anonimButtons],
       });
