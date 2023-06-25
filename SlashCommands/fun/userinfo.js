@@ -42,8 +42,8 @@ module.exports = {
             format: 'png',
             size: 4096,
           })})\n\n` +
-          `**Dołączył do discorda:** <t:${Number(create)}:R>\n` +
-          `**Dołączył do serwera:** <t:${Number(join)}:R>\n\n` +
+          `**Dołączył do discorda:** <t:${Number(create).toFixed(0)}:R>\n` +
+          `**Dołączył do serwera:** <t:${Number(join).toFixed(0)}:R>\n\n` +
           `**Role:**\n ${roleList}`,
       )
       .setThumbnail(user.displayAvatarURL({ format: 'png', size: 4096 }));
