@@ -1,5 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, WebhookClient, EmbedBuilder } = require('discord.js');
 const client = require('../../index');
+const emoji = require('../../json/emoji.json');
 require('dotenv').config();
 
 // Konfiguracja bota jest przechowywana w mongoDB.
@@ -53,7 +54,7 @@ client.on('modalSubmit', async (modal) => {
         url: 'https://discord.gg/wiemjak',
       })
       .setDescription(
-        `<:failed:976683070516244490> **Twój anonim został odrzucony przyjacielu.** <:PepeSadge:968540658866483270>\n**Treść:**\n${anonimContent}`,
+        `${emoji.FAILURE} **Twój anonim został odrzucony przyjacielu.** ${emoji.PepeSadge}\n**Treść:**\n${anonimContent}`,
       )
       .setTimestamp()
       .setFooter({
@@ -109,7 +110,7 @@ client.on('modalSubmit', async (modal) => {
         .setTitle('Kliknij aby przejść na kanał')
         .setURL(`https://discord.com/channels/${anonimSettings.guildId}/${anonimSettings.anonimchannel}`)
         .setDescription(
-          `<a:success:976092115119534150> **Twój anonim został dodany!** <:pepeshhh:968543360627396628>\n**Treść:**\n${anonimContent}`,
+          `${emoji.SUCCESS} **Twój anonim został dodany!** ${emoji.pepeshhh}\n**Treść:**\n${anonimContent}`,
         )
         .setTimestamp()
         .setFooter({
@@ -130,7 +131,6 @@ client.on('modalSubmit', async (modal) => {
       // Collector - czyli bot czeka na decyzje administracji.
       // Ze względu na to że bot nie ma bazy danych anonimów każdy reset bota czy też jego awaria powoduje że collector zaczyna prace od nowa a więc zapomina niezatwierdzone anonimy.
       // Wtedy anonim musi zostać wysłany ponownie lub może zostać zatwierdzony bez informacji zwrotnej.
-      console.log(message);
       const collector = message.createMessageComponentCollector(filter, {
         time: 0,
       });

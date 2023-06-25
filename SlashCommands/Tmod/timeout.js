@@ -117,7 +117,7 @@ module.exports = {
         .setDescription(
           `${emoji.TIMEOUT} **Wysłano na przerwe** ${target}.\n${emoji.MEMBER} **Przez:** <@${
             interaction.member.id
-          }>\n${emoji.DATA} **Kończy się:** <t:${Number(timeleft).toFixed(0)}}:R>\n${emoji.NOTE} **Powód:** ${
+          }>\n${emoji.DATA} **Kończy się:** <t:${Number(timeleft).toFixed(0)}:R>\n${emoji.NOTE} **Powód:** ${
             reason || '`Brak powodu`'
           }`,
         )
