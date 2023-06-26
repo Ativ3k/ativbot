@@ -30,9 +30,7 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         .setTimestamp();
       channel.send({ embeds: [embed] });
 
-      /* Text in Voice logs */
       newState.channel.send({ content: `${oldState.member} **dołączył.**`, allowedMentions: { parse: [] } });
-      /* end Text in Voice logs */
 
       if (newState.member.id === '309665062224658438') {
         newState.channel.permissionOverwrites.edit('325958892028690433', {
@@ -55,15 +53,9 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
 
       channel.send({ embeds: [embed] });
 
-      /* Text in Voice logs */
-      setTimeout(() => {
-        const ifExistOld = oldState.guild.channels.cache.get(oldState.channelId);
-        if (ifExistOld) {
-          oldState.channel.send({ content: `${oldState.member} **wyszedł.**`, allowedMentions: { parse: [] } });
-        }
-      }, 1000);
-      /* end Text in Voice logs */
-
+      if (oldState.channel.members.size > 0) {
+        oldState.channel.send({ content: `${oldState.member} **wyszedł.**`, allowedMentions: { parse: [] } });
+      }
       if (newState.member.id === '309665062224658438') {
         oldState.channel.permissionOverwrites.delete('325958892028690433');
       }
@@ -81,15 +73,10 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
         .setTimestamp();
       channel.send({ embeds: [embed] });
 
-      /* Text in Voice logs */
-      setTimeout(() => {
-        const ifExistOld = oldState.guild.channels.cache.get(oldState.channelId);
-        if (ifExistOld) {
-          oldState.channel.send({ content: `${oldState.member} **wyszedł.**`, allowedMentions: { parse: [] } });
-        }
-      }, 1000);
+      if (oldState.channel.members.size > 0) {
+        oldState.channel.send({ content: `${oldState.member} **wyszedł.**`, allowedMentions: { parse: [] } });
+      }
       newState.channel.send({ content: `${oldState.member} **dołączył.**`, allowedMentions: { parse: [] } });
-      /* end Text in Voice logs */
 
       if (newState.member.id === '309665062224658438') {
         oldState.channel.permissionOverwrites.delete('325958892028690433');
