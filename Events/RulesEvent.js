@@ -20,8 +20,9 @@ client.on('interactionCreate', async (interaction) => {
 
     const Ehasrole = new EmbedBuilder().setDescription('**`Już zaakceptowałeś/aś regulamin!`**').setColor('Green');
 
+    const odcinekUrl = 'https://discord.com/channels/639632749610795009/640536332497584149/1128038011783884800'
     const EDhasrole = new EmbedBuilder()
-      .setDescription(`**\`Zaakceptowałeś/aś regulamin!\`** ${emoji.GLADHAT}`)
+      .setDescription(`**\`Zaakceptowałeś/aś regulamin!\`** ${emoji.GLADHAT}\nOdcinek znajdziesz tutaj: ${odcinekUrl}`)
       .setColor('Green');
 
     if (hasRole) {
