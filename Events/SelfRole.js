@@ -29,8 +29,8 @@ client.on('interactionCreate', async (interaction) => {
       const roleId = interaction.values[0];
       const role = interaction.guild.roles.cache.get(roleId);
       await interaction.deferReply({ ephemeral: true });
-      await memberRoles.remove(roleid);
-      await memberRoles.add(roleId || '871917216034062357');
+      memberRoles.remove(roleid);
+      memberRoles.add(roleId || '871917216034062357');
       interaction.editReply(`**Od teraz Twoje województwo to:** <@&${role.id}>`);
 
       const logi = new EmbedBuilder()
@@ -73,24 +73,24 @@ client.on('interactionCreate', async (interaction) => {
         .join('\n');
 
       if (interaction.values[0] < 1) {
-        await memberRoles.remove(roleid);
+        memberRoles.remove(roleid);
         const embed = new EmbedBuilder()
           .setDescription(`${emoji.TRASH} **\`Pomyślnie wyczyszczono role!\`**`)
           .setColor('Red');
-        await interaction.reply({ embeds: [embed], ephemeral: true });
+        interaction.reply({ embeds: [embed], ephemeral: true });
       }
       if (gameroles.length < 8 && interaction.values[0] > 1) {
         if (!hasRole) {
-          await memberRoles.add(rola);
+          memberRoles.add(rola);
           const embed = new EmbedBuilder()
             .setDescription(`${emoji.SUCCESS} **\`Wybrane role:\`** <@&${rola}>`)
             .setColor('Green');
-          await interaction.reply({ embeds: [embed], ephemeral: true });
+          interaction.reply({ embeds: [embed], ephemeral: true });
         }
         if (hasRole) {
-          await memberRoles.remove(rola);
+          memberRoles.remove(rola);
           const embed = new EmbedBuilder().setDescription(`**\`Usunięto role:\`** <@&${rola}>`).setColor('Red');
-          await interaction.reply({ embeds: [embed], ephemeral: true });
+          interaction.reply({ embeds: [embed], ephemeral: true });
         }
       }
       if (gameroles.length >= 8 && interaction.values[0] > 1) {
@@ -103,12 +103,12 @@ client.on('interactionCreate', async (interaction) => {
                 `**Twoje role:**\n${ListRole}`,
             )
             .setColor('Orange');
-          await interaction.reply({ embeds: [embed], ephemeral: true });
+          interaction.reply({ embeds: [embed], ephemeral: true });
         }
         if (hasRole) {
-          await memberRoles.remove(rola);
+          memberRoles.remove(rola);
           const embed = new EmbedBuilder().setDescription(`**\`Usunięto role:\`** <@&${rola}>`).setColor('Red');
-          await interaction.reply({ embeds: [embed], ephemeral: true });
+          interaction.reply({ embeds: [embed], ephemeral: true });
         }
       }
     }
@@ -136,8 +136,8 @@ client.on('interactionCreate', async (interaction) => {
     const roleId = '872148534315606027';
     const role = interaction.guild.roles.cache.get(roleId);
     await interaction.deferReply({ ephemeral: true });
-    await memberRoles.remove(roleid);
-    await memberRoles.add(roleId);
+    memberRoles.remove(roleid);
+    memberRoles.add(roleId);
     interaction.editReply(`**Od teraz Twoja płeć to:** <@&${role.id}>`);
 
     const logi = new EmbedBuilder()
@@ -154,8 +154,8 @@ client.on('interactionCreate', async (interaction) => {
     const roleId = '872148505320357908';
     const role = interaction.guild.roles.cache.get(roleId);
     await interaction.deferReply({ ephemeral: true });
-    await memberRoles.remove(roleid);
-    await memberRoles.add(roleId);
+    memberRoles.remove(roleid);
+    memberRoles.add(roleId);
     interaction.editReply(`**Od teraz Twoja płeć to:** <@&${role.id}>`);
 
     const logi = new EmbedBuilder()
@@ -172,8 +172,8 @@ client.on('interactionCreate', async (interaction) => {
     const roleId = '871906536748879873';
     const role = interaction.guild.roles.cache.get(roleId);
     await interaction.deferReply({ ephemeral: true });
-    await memberRoles.remove(roleid);
-    await memberRoles.add(roleId);
+    memberRoles.remove(roleid);
+    memberRoles.add(roleId);
     interaction.editReply(`**Od teraz Twoja płeć to:** <@&${role.id}>`);
 
     const logi = new EmbedBuilder()
@@ -421,8 +421,8 @@ client.on('interactionCreate', async (interaction) => {
     }
     const roleid = ['870797338124361739', '871917132118638592'];
     const rola = '870796969424072737';
-    await memberRoles.remove(roleid);
-    await memberRoles.add(rola);
+    memberRoles.remove(roleid);
+    memberRoles.add(rola);
     interaction.reply({
       content: `${emoji.TAK} **Dodano role:** <@&${rola}>`,
       ephemeral: true,
@@ -437,8 +437,8 @@ client.on('interactionCreate', async (interaction) => {
     }
     const roleid = ['870796969424072737', '871917132118638592'];
     const rola = '870797338124361739';
-    await memberRoles.remove(roleid);
-    await memberRoles.add(rola);
+    memberRoles.remove(roleid);
+    memberRoles.add(rola);
     interaction.reply({
       content: `${emoji.TAK} **Dodano role:** <@&${rola}>`,
       ephemeral: true,
@@ -466,8 +466,8 @@ client.on('interactionCreate', async (interaction) => {
     }
     const roleid = ['870797338124361739', '870796969424072737'];
     const rola = '871917132118638592';
-    await memberRoles.remove(roleid);
-    await memberRoles.add(rola);
+    memberRoles.remove(roleid);
+    memberRoles.add(rola);
     interaction.reply({
       content: `${emoji.TAK} **Dodano role:** <@&${rola}>`,
       ephemeral: true,
