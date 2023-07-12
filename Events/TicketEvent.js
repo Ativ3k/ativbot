@@ -109,7 +109,7 @@ client.on("interactionCreate", async (interaction) => {
       .then((msg) => msg.pin());
   }
   if (interaction.customId === "ticket-close") {
-    interaction.deferReply();
+    interaction.deferUpdate();
 
     const row = new ActionRowBuilder()
       .addComponents(
@@ -169,6 +169,7 @@ client.on("interactionCreate", async (interaction) => {
     }, 500);
   }
   if (interaction.customId === "ticket-reopen") {
+    interaction.deferUpdate();
     const user = await client.users.fetch(interaction.channel.topic);
     interaction.channel.permissionOverwrites.set([
       {
@@ -209,6 +210,7 @@ client.on("interactionCreate", async (interaction) => {
     interaction.channel.send({ embeds: [embedReopen] });
   }
   if (interaction.customId === "ticket-delete") {
+    interaction.deferUpdate();
     const embedRemove = new EmbedBuilder()
       .setColor("Red")
       .setDescription("**`Usuwanie ticketu...`**");
@@ -218,7 +220,7 @@ client.on("interactionCreate", async (interaction) => {
     }, 1000);
   }
   if (interaction.customId.startsWith("weryfikacja-timeout-")) {
-    interaction.deferReply();
+    interaction.deferUpdate();
     const memberId = interaction.customId.split("-")[2];
     const timeoutTarget = await interaction.guild.members.fetch(memberId);
     const timeoutEnd = (Date.now() + 604_800_000) / 1000;
