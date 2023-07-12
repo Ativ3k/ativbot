@@ -219,7 +219,10 @@ client.on("interactionCreate", async (interaction) => {
       interaction.channel.delete();
     }, 1000);
   }
-  if (interaction.customId.startsWith("weryfikacja-timeout-")) {
+  if (
+    interaction.customId &&
+    interaction.customId.startsWith("weryfikacja-timeout-")
+  ) {
     interaction.deferUpdate();
     const memberId = interaction.customId.split("-")[2];
     const timeoutTarget = await interaction.guild.members.fetch(memberId);
