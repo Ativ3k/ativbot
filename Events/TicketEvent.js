@@ -218,6 +218,7 @@ client.on("interactionCreate", async (interaction) => {
     }, 1000);
   }
   if (interaction.customId.startsWith("weryfikacja-timeout-")) {
+    interaction.deferReply();
     const memberId = interaction.customId.split("-")[2];
     const timeoutTarget = await interaction.guild.members.fetch(memberId);
     const timeoutEnd = (Date.now() + 604_800_000) / 1000;
