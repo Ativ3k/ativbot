@@ -109,7 +109,7 @@ client.on("interactionCreate", async (interaction) => {
       .then((msg) => msg.pin());
   }
   if (interaction.customId === "ticket-close") {
-    interaction.deferUpdate();
+    interaction.deferReply();
 
     const row = new ActionRowBuilder()
       .addComponents(
