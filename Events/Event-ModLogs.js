@@ -1,13 +1,13 @@
-const { EmbedBuilder } = require('discord.js');
-const client = require('../index');
+const { EmbedBuilder } = require("discord.js");
+const client = require("../index");
 
-const channelId = '679054786649128999';
+const channelId = "679054786649128999";
 const emoji = require(`../json/emoji.json`);
 
-client.on('guildBanAdd', async (member) => {
+client.on("guildBanAdd", async (member) => {
   const fetchedLogs = await member.guild.fetchAuditLogs({
     limit: 1,
-    type: '22',
+    type: "22",
   });
   const banLog = fetchedLogs.entries.first();
   if (!banLog) return;
@@ -15,14 +15,15 @@ client.on('guildBanAdd', async (member) => {
 
   const time = Date.now() / 1000;
   const embed = new EmbedBuilder()
-    .setColor('Red')
+    .setColor("Red")
     .setDescription(
-      `${emoji.BAN} **Zbanowano:** ${member.user}\n${emoji.MEMBER} **Przez:** <@${executor.id}>\n${
-        emoji.NOTE
-      } **Powód:** ${banLog.reason || '`Brak powodu`'}\n${emoji.DATA} **Kiedy:** <t:${Number(time)}:R>`,
+      `${emoji.BAN} **Zbanowano:** ${member.user}
+      ${emoji.MEMBER} **Przez:** <@${executor.id}>
+      ${emoji.NOTE} **Powód:** ${banLog.reason || "`Brak powodu`"}
+      ${emoji.DATA} **Kiedy:** <t:${Number(time).toFixed(0)}:R>`
     )
     .setFooter({
-      text: `${member.user.id || '??'} + ${member.user.username || '??'}`,
+      text: `${member.user.id || "??"} + ${member.user.username || "??"}`,
     });
   // const DM = new EmbedBuilder()
   //   .setColor('Red')
@@ -45,11 +46,11 @@ client.on('guildBanAdd', async (member) => {
   }
 });
 
-client.on('guildMemberRemove', async (member) => {
+client.on("guildMemberRemove", async (member) => {
   const time = Date.now() / 1000;
   const kick = await member.guild.fetchAuditLogs({
     limit: 1,
-    type: '20',
+    type: "20",
   });
   const kickLog = kick.entries.first();
 
@@ -59,14 +60,16 @@ client.on('guildMemberRemove', async (member) => {
   const roznica = time - kicklogtime;
   if (roznica < 2) {
     const embed = new EmbedBuilder()
-      .setColor('Orange')
+      .setColor("Orange")
       .setDescription(
-        `${emoji.KICK} **Wyrzucono:** ${member.user}\n${emoji.MEMBER} **Przez:** <@${executor.id}>\n${
-          emoji.NOTE
-        } **Powód:** ${kickLog.reason || '`Brak powodu`'}\n${emoji.DATA} **Kiedy:** <t:${Number(time)}:R>`,
+        `${emoji.KICK} **Wyrzucono:** ${member.user}\n${
+          emoji.MEMBER
+        } **Przez:** <@${executor.id}>\n${emoji.NOTE} **Powód:** ${
+          kickLog.reason || "`Brak powodu`"
+        }\n${emoji.DATA} **Kiedy:** <t:${Number(time)}:R>`
       )
       .setFooter({
-        text: `${member.user.id || '??'} + ${member.user.username || '??'}`,
+        text: `${member.user.id || "??"} + ${member.user.username || "??"}`,
       });
 
     // const DM = new EmbedBuilder()
