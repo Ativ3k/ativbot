@@ -226,6 +226,11 @@ client.on("interactionCreate", async (interaction) => {
     interaction.deferUpdate();
     const memberId = interaction.customId.split("-")[2];
     const timeoutTarget = await interaction.guild.members.fetch(memberId);
+    if (!timeoutTarget) {
+      return interaction.channel.send({
+        content: `Ten cwaniaczek opuścił serwer!`,
+      });
+    }
     const timeoutEnd = (Date.now() + 604_800_000) / 1000;
     const reason = `\`Otwieranie kanału weryfikacja bez powodu\``;
     try {
