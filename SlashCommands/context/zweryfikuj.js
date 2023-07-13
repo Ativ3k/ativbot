@@ -1,12 +1,12 @@
-const { EmbedBuilder } = require('discord.js');
-const emoji = require('../../json/emoji.json');
+const { EmbedBuilder } = require("discord.js");
+const emoji = require("../../json/emoji.json");
 
 module.exports = {
-  name: '✔ Zweryfikuj',
+  name: "✔ Zweryfikuj",
   type: 2,
-  userPermissions: 'Administrator',
+  userPermissions: "Administrator",
   dm_permission: 0,
-  defaultMemberPermissions: 'Administrator',
+  defaultMemberPermissions: "Administrator",
   /**
    * @param {Client} client
    * @param {ContextMenuInteraction} interaction
@@ -15,26 +15,32 @@ module.exports = {
    * @raturns
    */
   run: async (client, interaction) => {
-    const member = interaction.options.getMember('user');
-    const user = interaction.options.getUser('user');
+    const member = interaction.options.getMember("user");
+    const user = interaction.options.getUser("user");
     const create = user.createdTimestamp / 1000;
     const join = member.joinedTimestamp / 1000;
-    const hasRole = member.roles.cache.some((r) => r.id === '872256489199394876');
+    const hasRole = member.roles.cache.some(
+      (r) => r.id === "872256489199394876"
+    );
     if (hasRole) {
       return interaction.reply({
         content: `<@${member}> jest już zweryfikowany!`,
         ephemeral: true,
       });
     }
-    const usun = ['870797338124361739', '870796969424072737', '871917132118638592'];
-    const dodaj = ['872256489199394876', '686205735868432390'];
+    const usun = [
+      "870797338124361739",
+      "870796969424072737",
+      "871917132118638592",
+    ];
+    const dodaj = ["872256489199394876", "686205735868432390"];
 
     const logi = new EmbedBuilder()
       .setDescription(
         `${emoji.VERIFY} **\`Kto:\`** ${interaction.member.user} (${interaction.member.user.id})` +
-          `❓ **\`Kogo:\`** ${member} (${member.id})`,
+          `❓ **\`Kogo:\`** ${member} (${member.id})`
       )
-      .setColor('FF0000');
+      .setColor("FF0000");
 
     member
       .send({
@@ -55,17 +61,16 @@ module.exports = {
           });
         }
       });
-    const logs = client.channels.cache.get('1033484270808875049');
+    const logs = client.channels.cache.get("1033484270808875049");
     logs.send({ embeds: [logi] });
     member.roles.add(dodaj);
     member.roles.remove(usun);
-    return client.channels.cache
-      .get('796367204660412478')
-      .send(
-        `**\`Witamy nową osobę w gronie zweryfikowanych i dorosłych!\`** 😄\n` +
-          `${member} dołączył na discord <t:${Number(create).toFixed(0)}:R>\n` +
-          `a na nasz serwer <t:${Number(join).toFixed(0)}:R>.\n` +
-          `Czuj się jak u siebie! <:peepoLove:708661445885296661>`,
-      );
+    const discordJoin = Number(create).toFixed(0);
+    const serverJoin = Number(join).toFixed(0);
+    return client.channels.cache.get("796367204660412478").send(
+      `**\`Witamy nową osobę w gronie zweryfikowanych i dorosłych!\`** 😄
+          ${member} dołączył na discord <t:${discordJoin}:R> a na nasz serwer <t:${serverJoin}:R>.
+          Czuj się jak u siebie! <:peepoLove:708661445885296661>`
+    );
   },
 };

@@ -239,7 +239,7 @@ client.on("interactionCreate", async (interaction) => {
         ${emoji.NOTE} **Powód:** ${reason || "`Brak powodu`"}`
         )
         .setFooter({ text: `${memberId} + ${timeoutTarget.user.username}` });
-      const logs = client.channels.cache.get("969995573983838218");
+      const logs = client.channels.cache.get("679054786649128999");
       logs.send({ embeds: [embedModLogs] });
       try {
         const DM = new EmbedBuilder()
